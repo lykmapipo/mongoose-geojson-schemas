@@ -38,6 +38,11 @@ const {
   isPolygon
 } = require(path.join(__dirname, 'lib', 'polygon'));
 
+const {
+  MultiPoint,
+  isMultiPoint
+} = require(path.join(__dirname, 'lib', 'multipoint'));
+
 const GEO_2DSPHERE = '2dsphere';
 
 
@@ -80,5 +85,18 @@ exports.Polygon = {
     isAsync: true,
     validator: isPolygon,
     message: '{PATH} is not a valid GeoJSON Polygon'
+  }
+};
+
+
+/* export geojson multipoint */
+exports.MultiPoint = {
+  type: MultiPoint,
+  index: GEO_2DSPHERE,
+  default: undefined,
+  validate: {
+    isAsync: true,
+    validator: isMultiPoint,
+    message: '{PATH} is not a valid GeoJSON MultiPoint'
   }
 };
