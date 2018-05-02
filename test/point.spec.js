@@ -82,7 +82,7 @@ describe('Point', function () {
 
   });
 
-  it('should be able to validate', function (done) {
+  it('should be able to validate - valid', function (done) {
 
     const poi = new POI({
       location: {
@@ -92,6 +92,25 @@ describe('Point', function () {
 
     poi.validate(function (error) {
       expect(error).to.not.exist;
+      done();
+    });
+
+  });
+
+  it('should be able to validate - invalid', function (done) {
+
+    const poi = new POI({
+      location: {
+        coordinates: [Math.random()]
+      }
+    });
+
+    poi.validate(function (error) {
+      expect(error).to.exist;
+      expect(error.name).to.be.equal('ValidationError');
+      expect(error.errors.location).to.exist;
+      expect(error.errors.location.message)
+        .to.be.equal('location is not a valid GeoJSON Point');
       done();
     });
 
