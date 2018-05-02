@@ -28,6 +28,8 @@ const {
   Polygon
 } = require('mongoose-geojson-schemas');
 
+...
+
 const Place = new Schema({
   name: { type: String, required: true }
   location: Point
