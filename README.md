@@ -9,8 +9,9 @@ mongoose schema to support [GeoJSON](http://geojson.org/geojson-spec.html) field
 *Note: All geojson types will added as single-embedded document(sub-schema)*
 
 ## Requirements
-
-- NodeJS v9.3+
+- [NodeJS v9.9.0+](https://nodejs.org)
+- [MongoDB v3.4.10+](https://www.mongodb.com/)
+- [Mongoose v5.0.14+](https://github.com/Automattic/mongoose)
 
 ## Install
 ```sh
