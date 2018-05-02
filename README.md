@@ -67,6 +67,12 @@ const Rail = new Schema({
 
 ...
 
+const Jurisdiction = new Schema({
+  name: { type: String, required: true }
+  boundaries: MultiPolygon
+});
+
+...
 
 ```
 
