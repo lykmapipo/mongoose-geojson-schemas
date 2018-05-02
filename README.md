@@ -32,7 +32,7 @@ const {
 
 ...
 
-const Place = new Schema({
+const Shop = new Schema({
   name: { type: String, required: true }
   location: Point
 });
