@@ -12,7 +12,7 @@ const { LineString, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 describe('LineString', function () {
 
-  const PoiSchema = new Schema({
+  const LoiSchema = new Schema({
     road: LineString
   });
   let LOI;
@@ -43,7 +43,7 @@ describe('LineString', function () {
 
   it('indexes are created when model is compiled', function (done) {
 
-    LOI = mongoose.model('LOI', PoiSchema);
+    LOI = mongoose.model('LOI', LoiSchema);
 
     LOI.on('index', function () {
       LOI

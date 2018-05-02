@@ -26,7 +26,8 @@ const {
   Point,
   LineString,
   Polygon,
-  MultiPoint
+  MultiPoint,
+  MultiLineString
 } = require('mongoose-geojson-schemas');
 
 ...
@@ -58,6 +59,14 @@ const Dump = new Schema({
 });
 
 ...
+
+const Railway = new Schema({
+  name: { type: String, required: true }
+  rail: MultiPoint
+});
+
+...
+
 
 ```
 

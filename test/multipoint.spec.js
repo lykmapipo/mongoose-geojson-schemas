@@ -15,7 +15,7 @@ describe('MultiPoint', function () {
   const MultiPointSchema = new Schema({
     waterpoint: MultiPoint
   });
-  let MLOI;
+  let MPOI;
 
   before(function (done) {
     mongoose
@@ -43,10 +43,10 @@ describe('MultiPoint', function () {
 
   it('indexes are created when model is compiled', function (done) {
 
-    MLOI = mongoose.model('MLOI', MultiPointSchema);
+    MPOI = mongoose.model('MPOI', MultiPointSchema);
 
-    MLOI.on('index', function () {
-      MLOI
+    MPOI.on('index', function () {
+      MPOI
         .collection
         .getIndexes({ full: true }, function (error, indexes) {
           //assert indexes
@@ -68,7 +68,7 @@ describe('MultiPoint', function () {
 
   it('should be instantiable', function () {
 
-    const loi = new MLOI({
+    const mpoi = new MPOI({
       waterpoint: {
         coordinates: [
           [100.0, 0.0],
@@ -77,16 +77,16 @@ describe('MultiPoint', function () {
       }
     });
 
-    expect(loi).to.exist;
-    expect(loi.waterpoint).to.exist;
-    expect(loi.waterpoint.type).to.exist;
-    expect(loi.waterpoint.coordinates).to.exist;
+    expect(mpoi).to.exist;
+    expect(mpoi.waterpoint).to.exist;
+    expect(mpoi.waterpoint.type).to.exist;
+    expect(mpoi.waterpoint.coordinates).to.exist;
 
   });
 
   it('should be able to validate - valid', function (done) {
 
-    const loi = new MLOI({
+    const mpoi = new MPOI({
       waterpoint: {
         coordinates: [
           [100.0, 0.0],
@@ -95,7 +95,7 @@ describe('MultiPoint', function () {
       }
     });
 
-    loi.validate(function (error) {
+    mpoi.validate(function (error) {
       expect(error).to.not.exist;
       done();
     });
@@ -104,13 +104,13 @@ describe('MultiPoint', function () {
 
   it('should be able to validate - invalid', function (done) {
 
-    const loi = new MLOI({
+    const mpoi = new MPOI({
       waterpoint: {
         coordinates: [Math.random()]
       }
     });
 
-    loi.validate(function (error) {
+    mpoi.validate(function (error) {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.waterpoint).to.exist;
@@ -123,7 +123,7 @@ describe('MultiPoint', function () {
 
   it('should be able to save - valid', function (done) {
 
-    const loi = new MLOI({
+    const mpoi = new MPOI({
       waterpoint: {
         coordinates: [
           [100.0, 0.0],
@@ -132,7 +132,7 @@ describe('MultiPoint', function () {
       }
     });
 
-    loi.save(function (error, saved) {
+    mpoi.save(function (error, saved) {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -153,7 +153,7 @@ describe('MultiPoint', function () {
 
   it('should be able to save - valid', function (done) {
 
-    const loi = {
+    const mpoi = {
       waterpoint: {
         coordinates: [
           [100.0, 0.0],
@@ -162,7 +162,7 @@ describe('MultiPoint', function () {
       }
     };
 
-    MLOI.create(loi, function (error, created) {
+    MPOI.create(mpoi, function (error, created) {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -183,7 +183,7 @@ describe('MultiPoint', function () {
 
   it('should be able to find saved', function (done) {
 
-    MLOI
+    MPOI
       .findOne(function (error, found) {
         expect(error).to.not.exist;
         expect(found).to.exist;
@@ -205,13 +205,13 @@ describe('MultiPoint', function () {
 
   it('should not save - invalid', function (done) {
 
-    const poi = new MLOI({
+    const mpoi = new MPOI({
       waterpoint: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.save(function (error, saved) {
+    mpoi.save(function (error, saved) {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
@@ -220,7 +220,7 @@ describe('MultiPoint', function () {
   });
 
   after(function (done) {
-    MLOI.remove(done);
+    MPOI.remove(done);
   });
 
 });

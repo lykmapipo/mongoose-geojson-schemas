@@ -43,6 +43,11 @@ const {
   isMultiPoint
 } = require(path.join(__dirname, 'lib', 'multipoint'));
 
+const {
+  MultiLineString,
+  isMultiLineString
+} = require(path.join(__dirname, 'lib', 'multilinestring'));
+
 const GEO_2DSPHERE = '2dsphere';
 
 
@@ -98,5 +103,18 @@ exports.MultiPoint = {
     isAsync: true,
     validator: isMultiPoint,
     message: '{PATH} is not a valid GeoJSON MultiPoint'
+  }
+};
+
+
+/* export geojson multipoint */
+exports.MultiLineString = {
+  type: MultiLineString,
+  index: GEO_2DSPHERE,
+  default: undefined,
+  validate: {
+    isAsync: true,
+    validator: isMultiLineString,
+    message: '{PATH} is not a valid GeoJSON MultiLineString'
   }
 };
