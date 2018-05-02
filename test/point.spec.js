@@ -6,7 +6,8 @@ const path = require('path');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const turf = require('@turf/turf');
-const expect = require('chai').expect;
+const { isPoint } = require('geojson-validation');
+const { expect } = require('chai');
 const { Schema } = mongoose;
 const { Point, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
 
@@ -67,14 +68,24 @@ describe('Point', function () {
 
   });
 
-  it('should be valid', function () {
+  it('should be instantiable', function (done) {
 
     const poi = new POI({
       location: {
         coordinates: turf.randomPosition()
       }
     });
-    console.log(poi);
+
+    expect(poi).to.exist;
+    expect(poi.location).to.exist;
+    expect(poi.location.type).to.exist;
+    expect(poi.location.coordinates).to.exist;
+
+    isPoint(poi.location, function (error, result) {
+      console.log(error);
+      console.log(result);
+      done();
+    });
 
   });
 
