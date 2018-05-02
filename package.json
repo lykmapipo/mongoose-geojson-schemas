@@ -1,0 +1,51 @@
+{
+  "name": "mongoose-geojson-schemas",
+  "version": "0.1.0",
+  "description": "mongoose schema to support geojson fields",
+  "keywords": [
+    "mongoose",
+    "mongoose-plugin",
+    "language",
+    "locale",
+    "l10n"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lykmapipo/mongoose-geojson-schemas.git"
+  },
+  "author": {
+    "name": "lykmapipo",
+    "email": "lallyelias87@gmail.com",
+    "url": "https://github.com/lykmapipo"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lykmapipo/mongoose-geojson-schemas/issues"
+  },
+  "homepage": "https://github.com/lykmapipo/mongoose-geojson-schemas",
+  "contributors": [
+    {
+      "name": "lykmapipo",
+      "github": "https://github.com/lykmapipo"
+    }
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "grunt": "^1.0.2",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.1",
+    "grunt-mocha-test": "^0.13.3",
+    "jshint-stylish": "^2.2.1",
+    "mocha": "^5.1.1"
+  },
+  "dependencies": {
+    "@turf/turf": "^5.1.6",
+    "geojson-validation": "^0.2.0",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.0.17"
+  }
+}
