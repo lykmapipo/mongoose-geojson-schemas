@@ -5,9 +5,13 @@
   "keywords": [
     "mongoose",
     "mongoose-plugin",
-    "language",
-    "locale",
-    "l10n"
+    "geojson",
+    "point",
+    "polygon",
+    "linestring",
+    "multipoint",
+    "multipolygon",
+    "multilinestring"
   ],
   "main": "index.js",
   "scripts": {
