@@ -7,7 +7,7 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const { expect } = require('chai');
 const { Schema } = mongoose;
-const { LineString, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
+const { LineString, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
 describe('LineString', function () {
@@ -25,7 +25,7 @@ describe('LineString', function () {
   it('should be a schema', function () {
     //assert shape
     expect(LineString).to.be.an('object');
-    expect(LineString.index).to.be.equal(GEOSPHERE_INDEX);
+    expect(LineString.index).to.be.equal(GEO_2DSPHERE);
     expect(LineString.type).to.be.an('object');
     expect(LineString.type.constructor.name).to.be.equal('Schema');
 
@@ -56,7 +56,7 @@ describe('LineString', function () {
 
           //assert road 2dsphere index
           const index =
-            (_.find(indexes, { key: { road: GEOSPHERE_INDEX } }));
+            (_.find(indexes, { key: { road: GEO_2DSPHERE } }));
           expect(index).to.exist;
           expect(index).to.be.an('object');
 

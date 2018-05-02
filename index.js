@@ -33,17 +33,22 @@ const {
   isLineString
 } = require(path.join(__dirname, 'lib', 'linestring'));
 
-const GEOSPHERE_INDEX = '2dsphere';
+const {
+  Polygon,
+  isPolygon
+} = require(path.join(__dirname, 'lib', 'polygon'));
+
+const GEO_2DSPHERE = '2dsphere';
 
 
 /* export geosphere index */
-exports.GEOSPHERE_INDEX = GEOSPHERE_INDEX;
+exports.GEO_2DSPHERE = GEO_2DSPHERE;
 
 
 /* export geojson point */
 exports.Point = {
   type: Point,
-  index: GEOSPHERE_INDEX,
+  index: GEO_2DSPHERE,
   default: undefined,
   validate: {
     isAsync: true,
@@ -56,11 +61,24 @@ exports.Point = {
 /* export geojson linestring */
 exports.LineString = {
   type: LineString,
-  index: GEOSPHERE_INDEX,
+  index: GEO_2DSPHERE,
   default: undefined,
   validate: {
     isAsync: true,
     validator: isLineString,
     message: '{PATH} is not a valid GeoJSON LineString'
+  }
+};
+
+
+/* export geojson polygon */
+exports.Polygon = {
+  type: Polygon,
+  index: GEO_2DSPHERE,
+  default: undefined,
+  validate: {
+    isAsync: true,
+    validator: isPolygon,
+    message: '{PATH} is not a valid GeoJSON Polygon'
   }
 };

@@ -22,7 +22,11 @@ $ npm install --save mongoose-geojson-schemas
 
 ```javascript
 const { Schema } = require('mongoose');
-const { Point, LineString } = require('mongoose-geojson-schemas');
+const {
+  Point,
+  LineString,
+  Polygon
+} = require('mongoose-geojson-schemas');
 
 const Place = new Schema({
   name: { type: String, required: true }
@@ -33,10 +37,18 @@ const Place = new Schema({
 
 const Road = new Schema({
   name: { type: String, required: true }
-  line: LineString
+  footpath: LineString
 });
 
 ...
+
+const Farm = new Schema({
+  owner: { type: String, required: true }
+  boundary: Polygon
+});
+
+...
+
 ```
 
 ## Testing
