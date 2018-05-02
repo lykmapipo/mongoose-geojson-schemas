@@ -27,7 +27,8 @@ const {
   LineString,
   Polygon,
   MultiPoint,
-  MultiLineString
+  MultiLineString,
+  MultiPolygon
 } = require('mongoose-geojson-schemas');
 
 ...
