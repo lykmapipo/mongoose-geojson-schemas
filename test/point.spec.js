@@ -5,7 +5,6 @@
 const path = require('path');
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const turf = require('@turf/turf');
 const { expect } = require('chai');
 const { Schema } = mongoose;
 const { Point, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
@@ -86,7 +85,7 @@ describe('Point', function () {
 
     const poi = new POI({
       location: {
-        coordinates: turf.randomPosition()
+        coordinates: [100.0, 0.0]
       }
     });
 

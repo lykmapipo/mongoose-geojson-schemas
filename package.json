@@ -44,8 +44,7 @@
     "grunt-contrib-watch": "^1.0.1",
     "grunt-mocha-test": "^0.13.3",
     "jshint-stylish": "^2.2.1",
-    "mocha": "^5.1.1",
-    "@turf/turf": "^5.1.6"
+    "mocha": "^5.1.1"
   },
   "dependencies": {
     "geojson-validation": "^0.2.0",
