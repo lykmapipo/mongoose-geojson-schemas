@@ -20,6 +20,8 @@
 
 /* dependencies */
 const path = require('path');
+const _ = require('lodash');
+const turf = require('@turf/turf');
 
 
 /* declarations */
@@ -135,4 +137,90 @@ exports.MultiPolygon = {
     validator: isMultiPolygon,
     message: '{PATH} is not a valid GeoJSON MultiPolygon'
   }
+};
+
+
+/**
+ * @name centroidOf
+ * @description calculates the centroid of a feature(s) using 
+ * the mean of all vertices
+ * @param  {Object} geojson feature to be centered
+ * @return {Object} an Object that can be used as centroid
+ */
+exports.centroidOf = function (geojson) {
+
+  try {
+    let centroid = turf.centroid(geojson);
+    if (centroid && centroid.geometry) {
+      centroid = centroid.geometry;
+    }
+    return centroid;
+  } catch (error) {
+    return undefined;
+  }
+
+};
+
+
+/**
+ * @name randomPoint
+ * @description generate random geojson point(s)
+ * @param  {Number} [size=1] number of geopoint to generate
+ * @return {Object|Object[]} random geojson point(s)
+ */
+exports.randomPoint = function (size) {
+  size = (size && size > 0 ? size : 1);
+  const points = turf.randomPoint(100, { bbox: [-80, 30, -60, 60] });
+  let sample = turf.sample(points, size);
+  sample = _.map(sample.features, 'geometry');
+  sample = (sample.length > 1 ? sample : _.first(sample));
+  return sample;
+};
+
+
+/**
+ * @name randomPoint
+ * @description generate random geojson point(s)
+ * @param  {Number} [size=1] number of geopoint to generate
+ * @return {Object|Object[]} random geojson point(s)
+ */
+exports.randomPoint = function (size) {
+  size = (size && size > 0 ? size : 1);
+  const points = turf.randomPoint(100, { bbox: [-180, -90, 180, 90] });
+  let sample = turf.sample(points, size);
+  sample = _.map(sample.features, 'geometry');
+  sample = (sample.length > 1 ? sample : _.first(sample));
+  return sample;
+};
+
+
+/**
+ * @name randomLineString
+ * @description generate random geojson linestring(s)
+ * @param  {Number} [size=1] number of geopoint to generate
+ * @return {Object|Object[]} random geojson linestring(s)
+ */
+exports.randomLineString = function (size) {
+  size = (size && size > 0 ? size : 1);
+  const points = turf.randomLineString(100, { bbox: [-180, -90, 180, 90] });
+  let sample = turf.sample(points, size);
+  sample = _.map(sample.features, 'geometry');
+  sample = (sample.length > 1 ? sample : _.first(sample));
+  return sample;
+};
+
+
+/**
+ * @name randomPolygon
+ * @description generate random geojson polygon(s)
+ * @param  {Number} [size=1] number of geopoint to generate
+ * @return {Object|Object[]} random geojson polygon(s)
+ */
+exports.randomPolygon = function (size) {
+  size = (size && size > 0 ? size : 1);
+  const points = turf.randomPolygon(100, { bbox: [-180, -90, 180, 90] });
+  let sample = turf.sample(points, size);
+  sample = _.map(sample.features, 'geometry');
+  sample = (sample.length > 1 ? sample : _.first(sample));
+  return sample;
 };
