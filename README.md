@@ -60,9 +60,9 @@ const Dump = new Schema({
 
 ...
 
-const Railway = new Schema({
+const Rail = new Schema({
   name: { type: String, required: true }
-  rail: MultiPoint
+  ways: MultiLineString
 });
 
 ...
