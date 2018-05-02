@@ -7,15 +7,15 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const { expect } = require('chai');
 const { Schema } = mongoose;
-const { Point, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
+const { LineString, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
 
 
-describe('Point', function () {
+describe('LineString', function () {
 
   const PoiSchema = new Schema({
-    location: Point
+    road: LineString
   });
-  let POI;
+  let LOI;
 
   before(function (done) {
     mongoose
@@ -24,29 +24,29 @@ describe('Point', function () {
 
   it('should be a schema', function () {
     //assert shape
-    expect(Point).to.be.an('object');
-    expect(Point.index).to.be.equal(GEOSPHERE_INDEX);
-    expect(Point.type).to.be.an('object');
-    expect(Point.type.constructor.name).to.be.equal('Schema');
+    expect(LineString).to.be.an('object');
+    expect(LineString.index).to.be.equal(GEOSPHERE_INDEX);
+    expect(LineString.type).to.be.an('object');
+    expect(LineString.type.constructor.name).to.be.equal('Schema');
 
     //assert point type
-    expect(Point.type.paths.type).to.exist;
-    expect(Point.type.paths.type.constructor.name)
+    expect(LineString.type.paths.type).to.exist;
+    expect(LineString.type.paths.type.constructor.name)
       .to.be.equal('SchemaString');
 
     //assert coordinates
-    expect(Point.type.paths.coordinates).exist;
-    expect(Point.type.paths.coordinates.constructor.name)
+    expect(LineString.type.paths.coordinates).exist;
+    expect(LineString.type.paths.coordinates.constructor.name)
       .to.be.equal('SchemaArray');
   });
 
 
   it('indexes are created when model is compiled', function (done) {
 
-    POI = mongoose.model('POI', PoiSchema);
+    LOI = mongoose.model('LOI', PoiSchema);
 
-    POI.on('index', function () {
-      POI
+    LOI.on('index', function () {
+      LOI
         .collection
         .getIndexes({ full: true }, function (error, indexes) {
           //assert indexes
@@ -54,9 +54,9 @@ describe('Point', function () {
           expect(indexes).to.exist;
           expect(indexes).to.have.length(2);
 
-          //assert location 2dsphere index
+          //assert road 2dsphere index
           const index =
-            (_.find(indexes, { key: { location: GEOSPHERE_INDEX } }));
+            (_.find(indexes, { key: { road: GEOSPHERE_INDEX } }));
           expect(index).to.exist;
           expect(index).to.be.an('object');
 
@@ -68,28 +68,34 @@ describe('Point', function () {
 
   it('should be instantiable', function () {
 
-    const poi = new POI({
-      location: {
-        coordinates: [100.0, 0.0]
+    const loi = new LOI({
+      road: {
+        coordinates: [
+          [100.0, 0.0],
+          [101.0, 1.0]
+        ]
       }
     });
 
-    expect(poi).to.exist;
-    expect(poi.location).to.exist;
-    expect(poi.location.type).to.exist;
-    expect(poi.location.coordinates).to.exist;
+    expect(loi).to.exist;
+    expect(loi.road).to.exist;
+    expect(loi.road.type).to.exist;
+    expect(loi.road.coordinates).to.exist;
 
   });
 
   it('should be able to validate - valid', function (done) {
 
-    const poi = new POI({
-      location: {
-        coordinates: [100.0, 0.0]
+    const loi = new LOI({
+      road: {
+        coordinates: [
+          [100.0, 0.0],
+          [101.0, 1.0]
+        ]
       }
     });
 
-    poi.validate(function (error) {
+    loi.validate(function (error) {
       expect(error).to.not.exist;
       done();
     });
@@ -98,25 +104,25 @@ describe('Point', function () {
 
   it('should be able to validate - invalid', function (done) {
 
-    const poi = new POI({
-      location: {
+    const loi = new LOI({
+      road: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.validate(function (error) {
+    loi.validate(function (error) {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
-      expect(error.errors.location).to.exist;
-      expect(error.errors.location.message)
-        .to.be.equal('location is not a valid GeoJSON Point');
+      expect(error.errors.road).to.exist;
+      expect(error.errors.road.message)
+        .to.be.equal('road is not a valid GeoJSON LineString');
       done();
     });
 
   });
 
   after(function (done) {
-    POI.remove(done);
+    LOI.remove(done);
   });
 
 });
