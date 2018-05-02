@@ -21,9 +21,8 @@ $ npm install --save mongoose-geojson-schemas
 ## Usage
 
 ```javascript
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const { Point } = require('mongoose-geojson-schemas');
+const { Schema } = require('mongoose');
+const { Point, LineString } = require('mongoose-geojson-schemas');
 
 const Place = new Schema({
   name: { type: String, required: true }
@@ -32,6 +31,12 @@ const Place = new Schema({
 
 ...
 
+const Road = new Schema({
+  name: { type: String, required: true }
+  line: LineString
+});
+
+...
 ```
 
 ## Testing
@@ -51,6 +56,7 @@ $ npm test
  - [geojson-spec.html](http://geojson.org/geojson-spec.html)
  - [GeoJSON_draft_version_6](http://wiki.geojson.org/GeoJSON_draft_version_6)
  - [GeoJSON Objects](https://docs.mongodb.com/manual/reference/geojson/)
+ - [geojson-second-bite](https://macwright.org/2015/03/23/geojson-second-bite)
 
 ## Contribute
 It will be nice, if you open an issue first so that we can know what is going on, then, fork this repo and push in your ideas. Do not forget to add a bit of test(s) of what value you adding.
