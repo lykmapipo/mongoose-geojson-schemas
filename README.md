@@ -25,7 +25,8 @@ const { Schema } = require('mongoose');
 const {
   Point,
   LineString,
-  Polygon
+  Polygon,
+  MultiPoint
 } = require('mongoose-geojson-schemas');
 
 ...
@@ -47,6 +48,13 @@ const Road = new Schema({
 const Farm = new Schema({
   owner: { type: String, required: true }
   boundary: Polygon
+});
+
+...
+
+const Dump = new Schema({
+  name: { type: String, required: true }
+  area: MultiPoint
 });
 
 ...
