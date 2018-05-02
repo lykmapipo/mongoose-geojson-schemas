@@ -5,7 +5,7 @@
 const path = require('path');
 const _ = require('lodash');
 const mongoose = require('mongoose');
-// const turf = require('@turf/turf');
+const turf = require('@turf/turf');
 const expect = require('chai').expect;
 const { Schema } = mongoose;
 const { Point, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
@@ -13,6 +13,9 @@ const { Point, GEOSPHERE_INDEX } = require(path.join(__dirname, '..'));
 
 describe('Point', function () {
 
+  const PoiSchema = new Schema({
+    location: Point
+  });
   let POI;
 
   before(function (done) {
@@ -38,34 +41,40 @@ describe('Point', function () {
       .to.be.equal('SchemaArray');
   });
 
-  describe('indexes', function () {
 
-    it('are created when model is compiled', function (done) {
+  it('indexes are created when model is compiled', function (done) {
 
-      POI = mongoose.model('POI', new Schema({
-        location: Point
-      }));
+    POI = mongoose.model('POI', PoiSchema);
 
-      POI.on('index', function () {
-        POI
-          .collection
-          .getIndexes({ full: true }, function (error, indexes) {
-            //assert indexes
-            expect(error).to.not.exist;
-            expect(indexes).to.exist;
-            expect(indexes).to.have.length(2);
+    POI.on('index', function () {
+      POI
+        .collection
+        .getIndexes({ full: true }, function (error, indexes) {
+          //assert indexes
+          expect(error).to.not.exist;
+          expect(indexes).to.exist;
+          expect(indexes).to.have.length(2);
 
-            //assert location 2dsphere index
-            const index =
-              (_.find(indexes, { key: { location: GEOSPHERE_INDEX } }));
-            expect(index).to.exist;
-            expect(index).to.be.an('object');
+          //assert location 2dsphere index
+          const index =
+            (_.find(indexes, { key: { location: GEOSPHERE_INDEX } }));
+          expect(index).to.exist;
+          expect(index).to.be.an('object');
 
-            done(error, indexes);
-          });
-      });
-
+          done(error, indexes);
+        });
     });
+
+  });
+
+  it('should be valid', function () {
+
+    const poi = new POI({
+      location: {
+        coordinates: turf.randomPosition()
+      }
+    });
+    console.log(poi);
 
   });
 
