@@ -121,6 +121,104 @@ describe('LineString', function () {
 
   });
 
+  it('should be able to save - valid', function (done) {
+
+    const loi = new LOI({
+      road: {
+        coordinates: [
+          [100.0, 0.0],
+          [101.0, 1.0]
+        ]
+      }
+    });
+
+    loi.save(function (error, saved) {
+      expect(error).to.not.exist;
+      expect(saved).to.exist;
+      expect(saved).to.exist;
+      expect(saved.road).to.exist;
+
+      expect(saved.road.type).to.exist;
+      expect(saved.road.type).to.be.a('string');
+      expect(saved.road.type).to.be.equal('LineString');
+
+      expect(saved.road.coordinates).to.exist;
+      expect(saved.road.coordinates).to.be.an('array');
+      expect(saved.road.coordinates).to.have.length(2);
+
+      done(error, saved);
+    });
+
+  });
+
+  it('should be able to save - valid', function (done) {
+
+    const loi = {
+      road: {
+        coordinates: [
+          [100.0, 0.0],
+          [101.0, 1.0]
+        ]
+      }
+    };
+
+    LOI.create(loi, function (error, created) {
+      expect(error).to.not.exist;
+      expect(created).to.exist;
+      expect(created).to.exist;
+      expect(created.road).to.exist;
+
+      expect(created.road.type).to.exist;
+      expect(created.road.type).to.be.a('string');
+      expect(created.road.type).to.be.equal('LineString');
+
+      expect(created.road.coordinates).to.exist;
+      expect(created.road.coordinates).to.be.an('array');
+      expect(created.road.coordinates).to.have.length(2);
+
+      done(error, created);
+    });
+
+  });
+
+  it('should be able to find saved', function (done) {
+
+    LOI
+      .findOne(function (error, found) {
+        expect(error).to.not.exist;
+        expect(found).to.exist;
+        expect(found).to.exist;
+        expect(found.road).to.exist;
+
+        expect(found.road.type).to.exist;
+        expect(found.road.type).to.be.a('string');
+        expect(found.road.type).to.be.equal('LineString');
+
+        expect(found.road.coordinates).to.exist;
+        expect(found.road.coordinates).to.be.an('array');
+        expect(found.road.coordinates).to.have.length(2);
+
+        done(error, found);
+      });
+
+  });
+
+  it('should not save - invalid', function (done) {
+
+    const poi = new LOI({
+      road: {
+        coordinates: [Math.random()]
+      }
+    });
+
+    poi.save(function (error, saved) {
+      expect(error).to.exist;
+      expect(saved).to.not.exist;
+      done();
+    });
+
+  });
+
   after(function (done) {
     LOI.remove(done);
   });

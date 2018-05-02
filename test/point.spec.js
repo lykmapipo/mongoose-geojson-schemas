@@ -115,6 +115,100 @@ describe('Point', function () {
 
   });
 
+  it('should be able to save - valid', function (done) {
+
+    const poi = new POI({
+      location: {
+        coordinates: [100.0, 0.0]
+      }
+    });
+
+    poi.save(function (error, saved) {
+      expect(error).to.not.exist;
+      expect(saved).to.exist;
+      expect(saved).to.exist;
+      expect(saved.location).to.exist;
+
+      expect(saved.location.type).to.exist;
+      expect(saved.location.type).to.be.a('string');
+      expect(saved.location.type).to.be.equal('Point');
+
+      expect(saved.location.coordinates).to.exist;
+      expect(saved.location.coordinates).to.be.an('array');
+      expect(saved.location.coordinates).to.have.length(2);
+
+      done(error, saved);
+    });
+
+  });
+
+  it('should be able to save - valid', function (done) {
+
+    const poi = {
+      location: {
+        coordinates: [100.0, 0.0]
+      }
+    };
+
+    POI
+      .create(poi, function (error, created) {
+        expect(error).to.not.exist;
+        expect(created).to.exist;
+        expect(created).to.exist;
+        expect(created.location).to.exist;
+
+        expect(created.location.type).to.exist;
+        expect(created.location.type).to.be.a('string');
+        expect(created.location.type).to.be.equal('Point');
+
+        expect(created.location.coordinates).to.exist;
+        expect(created.location.coordinates).to.be.an('array');
+        expect(created.location.coordinates).to.have.length(2);
+
+        done(error, created);
+      });
+
+  });
+
+  it('should be able to find saved', function (done) {
+
+    POI
+      .findOne(function (error, found) {
+        expect(error).to.not.exist;
+        expect(found).to.exist;
+        expect(found).to.exist;
+        expect(found.location).to.exist;
+
+        expect(found.location.type).to.exist;
+        expect(found.location.type).to.be.a('string');
+        expect(found.location.type).to.be.equal('Point');
+
+        expect(found.location.coordinates).to.exist;
+        expect(found.location.coordinates).to.be.an('array');
+        expect(found.location.coordinates).to.have.length(2);
+
+        done(error, found);
+      });
+
+  });
+
+  it('should not save - invalid', function (done) {
+
+    const poi = new POI({
+      location: {
+        coordinates: [Math.random()]
+      }
+    });
+
+    poi.save(function (error, saved) {
+      expect(error).to.exist;
+      expect(saved).to.not.exist;
+      done();
+    });
+
+  });
+
+
   after(function (done) {
     POI.remove(done);
   });
