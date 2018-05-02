@@ -15,16 +15,22 @@ const path = require('path');
 
 
 /*** declarations */
-const Point = require(path.join(__dirname, 'lib', 'point'));
+const { Point, isPoint } = require(path.join(__dirname, 'lib', 'point'));
+const GEOSPHERE_INDEX = '2dsphere';
 
 
 /*** export geosphere index */
-exports.GEOSPHERE_INDEX = '2dsphere';
+exports.GEOSPHERE_INDEX = GEOSPHERE_INDEX;
 
 
 /*** export geojson point */
 exports.Point = {
   type: Point,
-  index: exports.GEOSPHERE_INDEX,
-  default: undefined
+  index: GEOSPHERE_INDEX,
+  default: undefined,
+  validate: {
+    isAsync: true,
+    validator: isPoint,
+    message: '{PATH} is not a valid GeoJSON Point'
+  }
 };

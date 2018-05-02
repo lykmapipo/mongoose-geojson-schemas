@@ -45,6 +45,12 @@ $ npm install
 $ npm test
 ```
 
+## References
+ - [rfc7946](https://tools.ietf.org/html/rfc7946)
+ - [geojson-spec.html](http://geojson.org/geojson-spec.html)
+ - [GeoJSON_draft_version_6](http://wiki.geojson.org/GeoJSON_draft_version_6)
+ - [GeoJSON Objects](https://docs.mongodb.com/manual/reference/geojson/)
+
 ## Contribute
 It will be nice, if you open an issue first so that we can know what is going on, then, fork this repo and push in your ideas. Do not forget to add a bit of test(s) of what value you adding.
 
