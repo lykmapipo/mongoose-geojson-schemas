@@ -11,7 +11,6 @@ const {
   centroidOf
 } = require(path.join(__dirname, '..'));
 
-
 describe('GeoJSON', function () {
 
   it('should be able to generate randomPoint', function () {

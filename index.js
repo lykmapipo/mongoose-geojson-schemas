@@ -224,3 +224,12 @@ exports.randomPolygon = function (size) {
   sample = (sample.length > 1 ? sample : _.first(sample));
   return sample;
 };
+
+
+/* export types */
+exports.TYPE_LINESTRING = 'LineString';
+exports.TYPE_MULTILINESTRING = 'MultiLineString';
+exports.TYPE_MULTIPOINT = 'MultiPoint';
+exports.TYPE_MULTIPOLYGON = 'MultiPolygon';
+exports.TYPE_POINT = 'Point';
+exports.TYPE_POLYGON = 'Polygon';
