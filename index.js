@@ -170,7 +170,7 @@ exports.centroidOf = function (geojson) {
  */
 exports.randomPoint = function (size) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPoint(100, { bbox: [-80, 30, -60, 60] });
+  const points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -186,7 +186,7 @@ exports.randomPoint = function (size) {
  */
 exports.randomPoint = function (size) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPoint(100, { bbox: [-180, -90, 180, 90] });
+  const points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -202,7 +202,7 @@ exports.randomPoint = function (size) {
  */
 exports.randomLineString = function (size) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomLineString(100, { bbox: [-180, -90, 180, 90] });
+  const points = turf.randomLineString(100, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -218,7 +218,7 @@ exports.randomLineString = function (size) {
  */
 exports.randomPolygon = function (size) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPolygon(100, { bbox: [-180, -90, 180, 90] });
+  const points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
