@@ -6,8 +6,11 @@ const path = require('path');
 const { expect } = require('chai');
 const {
   randomPoint,
+  randomMultiPoint,
   randomLineString,
+  randomMultiLineString,
   randomPolygon,
+  randomMultiPolygon,
   centroidOf
 } = require(path.join(__dirname, '..'));
 
@@ -31,6 +34,26 @@ describe('GeoJSON', function () {
   });
 
 
+  it('should be able to generate randomMultiPoint', function () {
+    const multipoint = randomMultiPoint();
+    expect(multipoint).to.exist;
+    expect(multipoint).to.be.an('object');
+    expect(multipoint.type).to.exist;
+    expect(multipoint.type).to.be.equal('MultiPoint');
+    expect(multipoint.coordinates).to.exist;
+    expect(multipoint.coordinates).to.have.length(2);
+  });
+
+
+  it('should be able to generate randomMultiPoints', function () {
+    const multipoints = randomMultiPoint(2);
+    expect(multipoints).to.exist;
+    expect(multipoints).to.be.an('array');
+    expect(multipoints).to.have.length(2);
+  });
+
+
+
   it('should be able to generate randomLineString', function () {
     const line = randomLineString();
     expect(line).to.exist;
@@ -41,11 +64,28 @@ describe('GeoJSON', function () {
   });
 
 
+  it('should be able to generate randomMultiLineString', function () {
+    const multiline = randomMultiLineString();
+    expect(multiline).to.exist;
+    expect(multiline).to.be.an('object');
+    expect(multiline.type).to.exist;
+    expect(multiline.type).to.be.equal('MultiLineString');
+    expect(multiline.coordinates).to.exist;
+  });
+
+
   it('should be able to generate randomLineStrings', function () {
     const lines = randomLineString(2);
     expect(lines).to.exist;
     expect(lines).to.be.an('array');
     expect(lines).to.have.length(2);
+  });
+
+  it('should be able to generate randomMultiLineStrings', function () {
+    const multilines = randomMultiLineString(2);
+    expect(multilines).to.exist;
+    expect(multilines).to.be.an('array');
+    expect(multilines).to.have.length(2);
   });
 
 
@@ -58,12 +98,28 @@ describe('GeoJSON', function () {
     expect(polygon.coordinates).to.exist;
   });
 
+  it('should be able to generate randomMultiPolygon', function () {
+    const multipolygon = randomMultiPolygon();
+    expect(multipolygon).to.exist;
+    expect(multipolygon).to.be.an('object');
+    expect(multipolygon.type).to.exist;
+    expect(multipolygon.type).to.be.equal('MultiPolygon');
+    expect(multipolygon.coordinates).to.exist;
+  });
+
 
   it('should be able to generate randomPolygons', function () {
     const polygons = randomPolygon(2);
     expect(polygons).to.exist;
     expect(polygons).to.be.an('array');
     expect(polygons).to.have.length(2);
+  });
+
+  it('should be able to generate randomMultiPolygons', function () {
+    const multipolygons = randomMultiPolygon(2);
+    expect(multipolygons).to.exist;
+    expect(multipolygons).to.be.an('array');
+    expect(multipolygons).to.have.length(2);
   });
 
   it('should be able to compute polygon centroid', function () {

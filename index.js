@@ -165,7 +165,7 @@ exports.centroidOf = function (geojson) {
 /**
  * @name randomPoint
  * @description generate random geojson point(s)
- * @param  {Number} [size=1] number of geopoint to generate
+ * @param  {Number} [size=1] number of point to generate
  * @return {Object|Object[]} random geojson point(s)
  */
 exports.randomPoint = function (size) {
@@ -179,16 +179,29 @@ exports.randomPoint = function (size) {
 
 
 /**
- * @name randomPoint
- * @description generate random geojson point(s)
- * @param  {Number} [size=1] number of geopoint to generate
+ * @name randomMultiPoint
+ * @description generate random geojson multi point(s)
+ * @param  {Number} [size=1] number of point to generate
  * @return {Object|Object[]} random geojson point(s)
  */
-exports.randomPoint = function (size) {
+exports.randomMultiPoint = function (size) {
   size = (size && size > 0 ? size : 1);
   const points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
+  const _points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
+  let _sample = turf.sample(_points, size);
   sample = _.map(sample.features, 'geometry');
+  _sample = _.map(_sample.features, 'geometry');
+  sample = _.map(sample, function (value, index) {
+    const next = _sample[index];
+    return {
+      type: exports.TYPE_MULTIPOINT,
+      coordinates: [
+        value.coordinates,
+        next.coordinates
+      ]
+    };
+  });
   sample = (sample.length > 1 ? sample : _.first(sample));
   return sample;
 };
@@ -197,12 +210,12 @@ exports.randomPoint = function (size) {
 /**
  * @name randomLineString
  * @description generate random geojson linestring(s)
- * @param  {Number} [size=1] number of geopoint to generate
+ * @param  {Number} [size=1] number of linestrings to generate
  * @return {Object|Object[]} random geojson linestring(s)
  */
 exports.randomLineString = function (size) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomLineString(100, { bbox: [-80, 30, -60, 60] });
+  const points = turf.randomLineString(size, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -211,9 +224,38 @@ exports.randomLineString = function (size) {
 
 
 /**
+ * @name randomMultiLineString
+ * @description generate random geojson multilinestring(s)
+ * @param  {Number} [size=1] number of multilinestrings to generate
+ * @return {Object|Object[]} random geojson multilinestring(s)
+ */
+exports.randomMultiLineString = function (size) {
+  size = (size && size > 0 ? size : 1);
+  const points = turf.randomLineString(size, { bbox: [-80, 30, -60, 60] });
+  const _points = turf.randomLineString(size, { bbox: [-80, 30, -60, 60] });
+  let sample = turf.sample(points, size);
+  let _sample = turf.sample(_points, size);
+  sample = _.map(sample.features, 'geometry');
+  _sample = _.map(_sample.features, 'geometry');
+  sample = _.map(sample, function (value, index) {
+    const next = _sample[index];
+    return {
+      type: exports.TYPE_MULTILINESTRING,
+      coordinates: [
+        value.coordinates,
+        next.coordinates
+      ]
+    };
+  });
+  sample = (sample.length > 1 ? sample : _.first(sample));
+  return sample;
+};
+
+
+/**
  * @name randomPolygon
  * @description generate random geojson polygon(s)
- * @param  {Number} [size=1] number of geopoint to generate
+ * @param  {Number} [size=1] number of polygons to generate
  * @return {Object|Object[]} random geojson polygon(s)
  */
 exports.randomPolygon = function (size) {
@@ -221,6 +263,35 @@ exports.randomPolygon = function (size) {
   const points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
+  sample = (sample.length > 1 ? sample : _.first(sample));
+  return sample;
+};
+
+
+/**
+ * @name randomMultiPolygon
+ * @description generate random geojson multipolygon(s)
+ * @param  {Number} [size=1] number of multipolygons to generate
+ * @return {Object|Object[]} random geojson multipolygon(s)
+ */
+exports.randomMultiPolygon = function (size) {
+  size = (size && size > 0 ? size : 1);
+  const points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
+  const _points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
+  let sample = turf.sample(points, size);
+  let _sample = turf.sample(_points, size);
+  sample = _.map(sample.features, 'geometry');
+  _sample = _.map(_sample.features, 'geometry');
+  sample = _.map(sample, function (value, index) {
+    const next = _sample[index];
+    return {
+      type: exports.TYPE_MULTIPOLYGON,
+      coordinates: [
+        value.coordinates,
+        next.coordinates
+      ]
+    };
+  });
   sample = (sample.length > 1 ? sample : _.first(sample));
   return sample;
 };
