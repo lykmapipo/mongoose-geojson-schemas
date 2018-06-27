@@ -15,7 +15,7 @@ mongoose schema to support [GeoJSON](http://geojson.org/geojson-spec.html) field
 
 ## Install
 ```sh
-$ npm install --save mongoose-geojson-schemas
+$ npm install --save mongoose mongoose-geojson-schemas
 ```
 
 ## Usage
