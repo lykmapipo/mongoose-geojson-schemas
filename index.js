@@ -166,11 +166,14 @@ exports.centroidOf = function (geojson) {
  * @name randomPoint
  * @description generate random geojson point(s)
  * @param  {Number} [size=1] number of point to generate
+ * @param  {Number[]} [bbox=[-80, 30, -60, 60]] A bounding box inside of which 
+ * geometries are placed
  * @return {Object|Object[]} random geojson point(s)
  */
-exports.randomPoint = function (size) {
+exports.randomPoint = function (size, bbox = [-80, 30, -60, 60]) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
+  const _bbox = [].concat(bbox);
+  const points = turf.randomPoint(size, { bbox: _bbox });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -182,12 +185,15 @@ exports.randomPoint = function (size) {
  * @name randomMultiPoint
  * @description generate random geojson multi point(s)
  * @param  {Number} [size=1] number of point to generate
+ * @param  {Number[]} [bbox=[-80, 30, -60, 60]] A bounding box inside of which 
+ * geometries are placed
  * @return {Object|Object[]} random geojson point(s)
  */
-exports.randomMultiPoint = function (size) {
+exports.randomMultiPoint = function (size, bbox = [-80, 30, -60, 60]) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
-  const _points = turf.randomPoint(size, { bbox: [-80, 30, -60, 60] });
+  const _bbox = [].concat(bbox);
+  const points = turf.randomPoint(size, { bbox: _bbox });
+  const _points = turf.randomPoint(size, { bbox: _bbox });
   let sample = turf.sample(points, size);
   let _sample = turf.sample(_points, size);
   sample = _.map(sample.features, 'geometry');
@@ -211,11 +217,14 @@ exports.randomMultiPoint = function (size) {
  * @name randomLineString
  * @description generate random geojson linestring(s)
  * @param  {Number} [size=1] number of linestrings to generate
+ * @param  {Number[]} [bbox=[-80, 30, -60, 60]] A bounding box inside of which 
+ * geometries are placed
  * @return {Object|Object[]} random geojson linestring(s)
  */
-exports.randomLineString = function (size) {
+exports.randomLineString = function (size, bbox = [-80, 30, -60, 60]) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomLineString(size, { bbox: [-80, 30, -60, 60] });
+  const _bbox = [].concat(bbox);
+  const points = turf.randomLineString(size, { bbox: _bbox });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -227,12 +236,15 @@ exports.randomLineString = function (size) {
  * @name randomMultiLineString
  * @description generate random geojson multilinestring(s)
  * @param  {Number} [size=1] number of multilinestrings to generate
+ * @param  {Number[]} [bbox=[-80, 30, -60, 60]] A bounding box inside of which 
+ * geometries are placed
  * @return {Object|Object[]} random geojson multilinestring(s)
  */
-exports.randomMultiLineString = function (size) {
+exports.randomMultiLineString = function (size, bbox = [-80, 30, -60, 60]) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomLineString(size, { bbox: [-80, 30, -60, 60] });
-  const _points = turf.randomLineString(size, { bbox: [-80, 30, -60, 60] });
+  const _bbox = [].concat(bbox);
+  const points = turf.randomLineString(size, { bbox: _bbox });
+  const _points = turf.randomLineString(size, { bbox: _bbox });
   let sample = turf.sample(points, size);
   let _sample = turf.sample(_points, size);
   sample = _.map(sample.features, 'geometry');
@@ -256,11 +268,14 @@ exports.randomMultiLineString = function (size) {
  * @name randomPolygon
  * @description generate random geojson polygon(s)
  * @param  {Number} [size=1] number of polygons to generate
+ * @param  {Number[]} [bbox=[-80, 30, -60, 60]] A bounding box inside of which 
+ * geometries are placed
  * @return {Object|Object[]} random geojson polygon(s)
  */
-exports.randomPolygon = function (size) {
+exports.randomPolygon = function (size, bbox = [-80, 30, -60, 60]) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
+  const _bbox = [].concat(bbox);
+  const points = turf.randomPolygon(size, { bbox: _bbox });
   let sample = turf.sample(points, size);
   sample = _.map(sample.features, 'geometry');
   sample = (sample.length > 1 ? sample : _.first(sample));
@@ -272,12 +287,15 @@ exports.randomPolygon = function (size) {
  * @name randomMultiPolygon
  * @description generate random geojson multipolygon(s)
  * @param  {Number} [size=1] number of multipolygons to generate
+ * @param  {Number[]} [bbox=[-80, 30, -60, 60]] A bounding box inside of which 
+ * geometries are placed
  * @return {Object|Object[]} random geojson multipolygon(s)
  */
-exports.randomMultiPolygon = function (size) {
+exports.randomMultiPolygon = function (size, bbox = [-80, 30, -60, 60]) {
   size = (size && size > 0 ? size : 1);
-  const points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
-  const _points = turf.randomPolygon(size, { bbox: [-80, 30, -60, 60] });
+  const _bbox = [].concat(bbox);
+  const points = turf.randomPolygon(size, { bbox: _bbox });
+  const _points = turf.randomPolygon(size, { bbox: _bbox });
   let sample = turf.sample(points, size);
   let _sample = turf.sample(_points, size);
   sample = _.map(sample.features, 'geometry');
