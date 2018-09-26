@@ -12,14 +12,9 @@ const { Point, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 describe('Point', function () {
 
+  let POI;
   const PoiSchema = new Schema({
     location: Point
-  });
-  let POI;
-
-  before(function (done) {
-    mongoose
-      .connect('mongodb://localhost/mongoose-geojson-schemas', done);
   });
 
   it('should be a schema', function () {
@@ -210,7 +205,7 @@ describe('Point', function () {
 
 
   after(function (done) {
-    POI.remove(done);
+    POI.deleteMany(done);
   });
 
 });

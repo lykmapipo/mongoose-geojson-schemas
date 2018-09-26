@@ -12,14 +12,9 @@ const { MultiPoint, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 describe('MultiPoint', function () {
 
+  let MPOI;
   const MultiPointSchema = new Schema({
     waterpoint: MultiPoint
-  });
-  let MPOI;
-
-  before(function (done) {
-    mongoose
-      .connect('mongodb://localhost/mongoose-geojson-schemas', done);
   });
 
   it('should be a schema', function () {
@@ -220,7 +215,7 @@ describe('MultiPoint', function () {
   });
 
   after(function (done) {
-    MPOI.remove(done);
+    MPOI.deleteMany(done);
   });
 
 });

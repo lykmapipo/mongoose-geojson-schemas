@@ -10,19 +10,14 @@ const { Schema } = mongoose;
 const { LineString, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
-describe('LineString', function () {
+describe('LineString', () => {
 
+  let LOI;
   const LoiSchema = new Schema({
     road: LineString
   });
-  let LOI;
 
-  before(function (done) {
-    mongoose
-      .connect('mongodb://localhost/mongoose-geojson-schemas', done);
-  });
-
-  it('should be a schema', function () {
+  it('should be a schema', () => {
     //assert shape
     expect(LineString).to.be.an('object');
     expect(LineString.index).to.be.equal(GEO_2DSPHERE);
@@ -41,14 +36,13 @@ describe('LineString', function () {
   });
 
 
-  it('indexes are created when model is compiled', function (done) {
-
+  it('indexes are created when model is compiled', (done) => {
     LOI = mongoose.model('LOI', LoiSchema);
 
-    LOI.on('index', function () {
+    LOI.on('index', () => {
       LOI
         .collection
-        .getIndexes({ full: true }, function (error, indexes) {
+        .getIndexes({ full: true }, (error, indexes) => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
@@ -66,8 +60,7 @@ describe('LineString', function () {
 
   });
 
-  it('should be instantiable', function () {
-
+  it('should be instantiable', () => {
     const loi = new LOI({
       road: {
         coordinates: [
@@ -81,11 +74,9 @@ describe('LineString', function () {
     expect(loi.road).to.exist;
     expect(loi.road.type).to.exist;
     expect(loi.road.coordinates).to.exist;
-
   });
 
-  it('should be able to validate - valid', function (done) {
-
+  it('should be able to validate - valid', (done) => {
     const loi = new LOI({
       road: {
         coordinates: [
@@ -95,22 +86,20 @@ describe('LineString', function () {
       }
     });
 
-    loi.validate(function (error) {
+    loi.validate((error) => {
       expect(error).to.not.exist;
       done();
     });
-
   });
 
-  it('should be able to validate - invalid', function (done) {
-
+  it('should be able to validate - invalid', (done) => {
     const loi = new LOI({
       road: {
         coordinates: [Math.random()]
       }
     });
 
-    loi.validate(function (error) {
+    loi.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.road).to.exist;
@@ -121,8 +110,7 @@ describe('LineString', function () {
 
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const loi = new LOI({
       road: {
         coordinates: [
@@ -132,7 +120,7 @@ describe('LineString', function () {
       }
     });
 
-    loi.save(function (error, saved) {
+    loi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -151,8 +139,7 @@ describe('LineString', function () {
 
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const loi = {
       road: {
         coordinates: [
@@ -162,7 +149,7 @@ describe('LineString', function () {
       }
     };
 
-    LOI.create(loi, function (error, created) {
+    LOI.create(loi, (error, created) => {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -178,13 +165,11 @@ describe('LineString', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to find saved', function (done) {
-
+  it('should be able to find saved', (done) => {
     LOI
-      .findOne(function (error, found) {
+      .findOne((error, found) => {
         expect(error).to.not.exist;
         expect(found).to.exist;
         expect(found).to.exist;
@@ -200,27 +185,24 @@ describe('LineString', function () {
 
         done(error, found);
       });
-
   });
 
-  it('should not save - invalid', function (done) {
-
+  it('should not save - invalid', (done) => {
     const poi = new LOI({
       road: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.save(function (error, saved) {
+    poi.save((error, saved) => {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
     });
-
   });
 
-  after(function (done) {
-    LOI.remove(done);
+  after((done) => {
+    LOI.deleteMany(done);
   });
 
 });

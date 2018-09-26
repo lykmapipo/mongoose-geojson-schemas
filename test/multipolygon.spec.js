@@ -12,14 +12,9 @@ const { MultiPolygon, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 describe('MultiPolygon', function () {
 
+  let MPLOI;
   const PoiSchema = new Schema({
     jurisdiction: MultiPolygon
-  });
-  let MPLOI;
-
-  before(function (done) {
-    mongoose
-      .connect('mongodb://localhost/mongoose-geojson-schemas', done);
   });
 
   it('should be a schema', function () {
@@ -420,7 +415,7 @@ describe('MultiPolygon', function () {
   });
 
   after(function (done) {
-    MPLOI.remove(done);
+    MPLOI.deleteMany(done);
   });
 
 });

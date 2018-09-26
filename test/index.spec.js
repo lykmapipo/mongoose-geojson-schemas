@@ -1,7 +1,7 @@
 'use strict';
 
 
-/*** dependencies */
+/* dependencies */
 const path = require('path');
 const { expect } = require('chai');
 const {
@@ -14,9 +14,9 @@ const {
   centroidOf
 } = require(path.join(__dirname, '..'));
 
-describe('GeoJSON', function () {
+describe('GeoJSON', () => {
 
-  it('should be able to generate randomPoint', function () {
+  it('should be able to generate randomPoint', () => {
     const point = randomPoint();
     expect(point).to.exist;
     expect(point).to.be.an('object');
@@ -26,7 +26,7 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomPoints', function () {
+  it('should be able to generate randomPoints', () => {
     const points = randomPoint(2);
     expect(points).to.exist;
     expect(points).to.be.an('array');
@@ -34,7 +34,7 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomMultiPoint', function () {
+  it('should be able to generate randomMultiPoint', () => {
     const multipoint = randomMultiPoint();
     expect(multipoint).to.exist;
     expect(multipoint).to.be.an('object');
@@ -45,7 +45,7 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomMultiPoints', function () {
+  it('should be able to generate randomMultiPoints', () => {
     const multipoints = randomMultiPoint(2);
     expect(multipoints).to.exist;
     expect(multipoints).to.be.an('array');
@@ -54,7 +54,7 @@ describe('GeoJSON', function () {
 
 
 
-  it('should be able to generate randomLineString', function () {
+  it('should be able to generate randomLineString', () => {
     const line = randomLineString();
     expect(line).to.exist;
     expect(line).to.be.an('object');
@@ -64,7 +64,7 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomMultiLineString', function () {
+  it('should be able to generate randomMultiLineString', () => {
     const multiline = randomMultiLineString();
     expect(multiline).to.exist;
     expect(multiline).to.be.an('object');
@@ -74,14 +74,14 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomLineStrings', function () {
+  it('should be able to generate randomLineStrings', () => {
     const lines = randomLineString(2);
     expect(lines).to.exist;
     expect(lines).to.be.an('array');
     expect(lines).to.have.length(2);
   });
 
-  it('should be able to generate randomMultiLineStrings', function () {
+  it('should be able to generate randomMultiLineStrings', () => {
     const multilines = randomMultiLineString(2);
     expect(multilines).to.exist;
     expect(multilines).to.be.an('array');
@@ -89,7 +89,7 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomPolygon', function () {
+  it('should be able to generate randomPolygon', () => {
     const polygon = randomPolygon();
     expect(polygon).to.exist;
     expect(polygon).to.be.an('object');
@@ -98,7 +98,7 @@ describe('GeoJSON', function () {
     expect(polygon.coordinates).to.exist;
   });
 
-  it('should be able to generate randomMultiPolygon', function () {
+  it('should be able to generate randomMultiPolygon', () => {
     const multipolygon = randomMultiPolygon();
     expect(multipolygon).to.exist;
     expect(multipolygon).to.be.an('object');
@@ -108,21 +108,21 @@ describe('GeoJSON', function () {
   });
 
 
-  it('should be able to generate randomPolygons', function () {
+  it('should be able to generate randomPolygons', () => {
     const polygons = randomPolygon(2);
     expect(polygons).to.exist;
     expect(polygons).to.be.an('array');
     expect(polygons).to.have.length(2);
   });
 
-  it('should be able to generate randomMultiPolygons', function () {
+  it('should be able to generate randomMultiPolygons', () => {
     const multipolygons = randomMultiPolygon(2);
     expect(multipolygons).to.exist;
     expect(multipolygons).to.be.an('array');
     expect(multipolygons).to.have.length(2);
   });
 
-  it('should be able to compute polygon centroid', function () {
+  it('should be able to compute polygon centroid', () => {
     const polygon = randomPolygon();
     const centroid = centroidOf(polygon);
     expect(centroid).to.exist;

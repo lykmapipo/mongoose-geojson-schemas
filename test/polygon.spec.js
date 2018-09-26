@@ -12,14 +12,9 @@ const { Polygon, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 describe('Polygon', function () {
 
+  let PLOI;
   const PoiSchema = new Schema({
     farm: Polygon
-  });
-  let PLOI;
-
-  before(function (done) {
-    mongoose
-      .connect('mongodb://localhost/mongoose-geojson-schemas', done);
   });
 
   it('should be a schema', function () {
@@ -325,7 +320,7 @@ describe('Polygon', function () {
   });
 
   after(function (done) {
-    PLOI.remove(done);
+    PLOI.deleteMany(done);
   });
 
 });

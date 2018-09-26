@@ -12,14 +12,9 @@ const { MultiLineString, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 describe('MultiLineString', function () {
 
+  let MLOI;
   const MLoiSchema = new Schema({
     railway: MultiLineString
-  });
-  let MLOI;
-
-  before(function (done) {
-    mongoose
-      .connect('mongodb://localhost/mongoose-geojson-schemas', done);
   });
 
   it('should be a schema', function () {
@@ -318,7 +313,7 @@ describe('MultiLineString', function () {
   });
 
   after(function (done) {
-    MLOI.remove(done);
+    MLOI.deleteMany(done);
   });
 
 });
