@@ -85,6 +85,14 @@ describe('MultiLineString', function () {
 
   });
 
+  it('should be able to generate fake seed', () => {
+    const mloi = MLOI.fake();
+
+    expect(mloi.railway).to.exist;
+    expect(mloi.railway.type).to.exist;
+    expect(mloi.railway.coordinates).to.exist;
+  });
+
   it('should be able to validate - valid', function (done) {
 
     const mloi = new MLOI({

@@ -84,6 +84,14 @@ describe('Polygon', function () {
 
   });
 
+  it('should be able to generate fake seed', () => {
+    const ploi = PLOI.fake();
+
+    expect(ploi.farm).to.exist;
+    expect(ploi.farm.type).to.exist;
+    expect(ploi.farm.coordinates).to.exist;
+  });
+
   it('should be able to validate - valid', function (done) {
 
     const ploi = new PLOI({

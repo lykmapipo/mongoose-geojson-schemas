@@ -7,6 +7,7 @@ process.env.NODE_ENV = 'test';
 
 /* dependencies */
 const mongoose = require('mongoose');
+mongoose.plugin(require('@lykmapipo/mongoose-faker'));
 
 
 const wipe = (done) => {

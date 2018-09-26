@@ -102,6 +102,15 @@ describe('MultiPolygon', function () {
 
   });
 
+  it('should be able to generate fake seed', () => {
+    const ploi = MPLOI.fake();
+
+    expect(ploi.jurisdiction).to.exist;
+    expect(ploi.jurisdiction.type).to.exist;
+    expect(ploi.jurisdiction.coordinates).to.exist;
+  });
+
+
   it('should be able to validate - valid', function (done) {
 
     const ploi = new MPLOI({

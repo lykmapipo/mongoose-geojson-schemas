@@ -76,6 +76,14 @@ describe('Point', function () {
 
   });
 
+  it('should be able to generate fake seed', () => {
+    const poi = POI.fake();
+
+    expect(poi.location).to.exist;
+    expect(poi.location.type).to.exist;
+    expect(poi.location.coordinates).to.exist;
+  });
+
   it('should be able to validate - valid', function (done) {
 
     const poi = new POI({

@@ -79,6 +79,15 @@ describe('MultiPoint', function () {
 
   });
 
+  it('should be able to generate fake seed', () => {
+    const mpoi = MPOI.fake();
+
+    expect(mpoi.waterpoint).to.exist;
+    expect(mpoi.waterpoint.type).to.exist;
+    expect(mpoi.waterpoint.coordinates).to.exist;
+  });
+
+
   it('should be able to validate - valid', function (done) {
 
     const mpoi = new MPOI({

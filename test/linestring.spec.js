@@ -60,6 +60,14 @@ describe('LineString', () => {
 
   });
 
+  it('should be able to generate fake seed', () => {
+    const loi = LOI.fake();
+
+    expect(loi.road).to.exist;
+    expect(loi.road.type).to.exist;
+    expect(loi.road.coordinates).to.exist;
+  });
+
   it('should be instantiable', () => {
     const loi = new LOI({
       road: {
@@ -86,6 +94,14 @@ describe('LineString', () => {
       }
     });
 
+    loi.validate((error) => {
+      expect(error).to.not.exist;
+      done();
+    });
+  });
+
+  it('should be able to validate - valid', (done) => {
+    const loi = LOI.fake();
     loi.validate((error) => {
       expect(error).to.not.exist;
       done();
@@ -140,6 +156,29 @@ describe('LineString', () => {
   });
 
   it('should be able to save - valid', (done) => {
+    const loi = LOI.fake();
+
+    loi.save((error, saved) => {
+      expect(error).to.not.exist;
+      expect(saved).to.exist;
+      expect(saved).to.exist;
+      expect(saved.road).to.exist;
+
+      expect(saved.road.type).to.exist;
+      expect(saved.road.type).to.be.a('string');
+      expect(saved.road.type).to.be.equal('LineString');
+
+      expect(saved.road.coordinates).to.exist;
+      expect(saved.road.coordinates).to.be.an('array');
+      expect(saved.road.coordinates)
+        .to.have.length(saved.road.coordinates.length);
+
+      done(error, saved);
+    });
+
+  });
+
+  it('should be able to save - valid', (done) => {
     const loi = {
       road: {
         coordinates: [
@@ -181,7 +220,7 @@ describe('LineString', () => {
 
         expect(found.road.coordinates).to.exist;
         expect(found.road.coordinates).to.be.an('array');
-        expect(found.road.coordinates).to.have.length(2);
+        expect(found.road.coordinates).to.have.length.at.least(2);
 
         done(error, found);
       });

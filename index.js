@@ -71,6 +71,11 @@ exports.Point = {
     isAsync: true,
     validator: isPoint,
     message: '{PATH} is not a valid GeoJSON Point'
+  },
+  fake: {
+    generator: function fakePointGenerator() {
+      return exports.randomPoint();
+    }
   }
 };
 
@@ -84,6 +89,11 @@ exports.LineString = {
     isAsync: true,
     validator: isLineString,
     message: '{PATH} is not a valid GeoJSON LineString'
+  },
+  fake: {
+    generator: function fakeLineStringGenerator() {
+      return exports.randomLineString();
+    }
   }
 };
 
@@ -97,6 +107,11 @@ exports.Polygon = {
     isAsync: true,
     validator: isPolygon,
     message: '{PATH} is not a valid GeoJSON Polygon'
+  },
+  fake: {
+    generator: function fakePolygonGenerator() {
+      return exports.randomPolygon();
+    }
   }
 };
 
@@ -110,6 +125,11 @@ exports.MultiPoint = {
     isAsync: true,
     validator: isMultiPoint,
     message: '{PATH} is not a valid GeoJSON MultiPoint'
+  },
+  fake: {
+    generator: function fakeMultiPointGenerator() {
+      return exports.randomMultiPoint();
+    }
   }
 };
 
@@ -123,6 +143,11 @@ exports.MultiLineString = {
     isAsync: true,
     validator: isMultiLineString,
     message: '{PATH} is not a valid GeoJSON MultiLineString'
+  },
+  fake: {
+    generator: function fakeMultiLineStringGenerator() {
+      return exports.randomMultiLineString();
+    }
   }
 };
 
@@ -136,6 +161,11 @@ exports.MultiPolygon = {
     isAsync: true,
     validator: isMultiPolygon,
     message: '{PATH} is not a valid GeoJSON MultiPolygon'
+  },
+  fake: {
+    generator: function fakeMultiPolygonGenerator() {
+      return exports.randomMultiPolygon();
+    }
   }
 };
 
