@@ -12,7 +12,9 @@
     "linestring",
     "multipoint",
     "multipolygon",
-    "multilinestring"
+    "multilinestring",
+    "geometry",
+    "feature"
   ],
   "main": "index.js",
   "scripts": {
