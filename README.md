@@ -6,7 +6,7 @@
 
 mongoose schema to support [GeoJSON](http://geojson.org/geojson-spec.html) fields.
 
-*Note: All geojson types will added as single-embedded document(sub-schema)*
+*Note: All geojson types will added as single-embedded document(sub-schema) and `2dsphere` indexed*
 
 ## Requirements
 - [NodeJS v9.9.0+](https://nodejs.org)
@@ -28,7 +28,8 @@ const {
   Polygon,
   MultiPoint,
   MultiLineString,
-  MultiPolygon
+  MultiPolygon,
+  Geometry
 } = require('mongoose-geojson-schemas');
 
 ...
@@ -71,6 +72,13 @@ const Rail = new Schema({
 const Jurisdiction = new Schema({
   name: { type: String, required: true }
   boundaries: MultiPolygon
+});
+
+...
+
+const Shape = new Schema({
+  name: { type: String, required: true }
+  form: Geometry
 });
 
 ...
