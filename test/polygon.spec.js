@@ -10,14 +10,14 @@ const { Schema } = mongoose;
 const { Polygon, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
-describe('Polygon', function () {
+describe('Polygon', () => {
 
   let PLOI;
   const PoiSchema = new Schema({
     farm: Polygon
   });
 
-  it('should be a schema', function () {
+  it('should be a schema', () => {
     //assert shape
     expect(Polygon).to.be.an('object');
     expect(Polygon.index).to.be.equal(GEO_2DSPHERE);
@@ -36,14 +36,13 @@ describe('Polygon', function () {
   });
 
 
-  it('indexes are created when model is compiled', function (done) {
-
+  it('indexes are created when model is compiled', (done) => {
     PLOI = mongoose.model('PLOI', PoiSchema);
 
-    PLOI.on('index', function () {
+    PLOI.on('index', () => {
       PLOI
         .collection
-        .getIndexes({ full: true }, function (error, indexes) {
+        .getIndexes({ full: true }, (error, indexes) => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
@@ -58,11 +57,9 @@ describe('Polygon', function () {
           done(error, indexes);
         });
     });
-
   });
 
-  it('should be instantiable', function () {
-
+  it('should be instantiable', () => {
     const ploi = new PLOI({
       farm: {
         coordinates: [
@@ -81,7 +78,6 @@ describe('Polygon', function () {
     expect(ploi.farm).to.exist;
     expect(ploi.farm.type).to.exist;
     expect(ploi.farm.coordinates).to.exist;
-
   });
 
   it('should be able to generate fake seed', () => {
@@ -92,8 +88,7 @@ describe('Polygon', function () {
     expect(ploi.farm.coordinates).to.exist;
   });
 
-  it('should be able to validate - valid', function (done) {
-
+  it('should be able to validate - valid', (done) => {
     const ploi = new PLOI({
       farm: {
         coordinates: [
@@ -108,22 +103,20 @@ describe('Polygon', function () {
       }
     });
 
-    ploi.validate(function (error) {
+    ploi.validate((error) => {
       expect(error).to.not.exist;
       done();
     });
-
   });
 
-  it('should be able to validate - invalid', function (done) {
-
+  it('should be able to validate - invalid', (done) => {
     const ploi = new PLOI({
       farm: {
         coordinates: [Math.random()]
       }
     });
 
-    ploi.validate(function (error) {
+    ploi.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.farm).to.exist;
@@ -131,11 +124,9 @@ describe('Polygon', function () {
         .to.be.equal('farm is not a valid GeoJSON Polygon');
       done();
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = new PLOI({
       farm: {
         coordinates: [
@@ -150,7 +141,7 @@ describe('Polygon', function () {
       }
     });
 
-    ploi.save(function (error, saved) {
+    ploi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -166,12 +157,10 @@ describe('Polygon', function () {
 
       done(error, saved);
     });
-
   });
 
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = new PLOI({
       farm: {
         coordinates: [
@@ -193,7 +182,7 @@ describe('Polygon', function () {
       }
     });
 
-    ploi.save(function (error, saved) {
+    ploi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -209,11 +198,9 @@ describe('Polygon', function () {
 
       done(error, saved);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = {
       farm: {
         coordinates: [
@@ -228,7 +215,7 @@ describe('Polygon', function () {
       }
     };
 
-    PLOI.create(ploi, function (error, created) {
+    PLOI.create(ploi, (error, created) => {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -244,11 +231,9 @@ describe('Polygon', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = {
       farm: {
         coordinates: [
@@ -270,7 +255,7 @@ describe('Polygon', function () {
       }
     };
 
-    PLOI.create(ploi, function (error, created) {
+    PLOI.create(ploi, (error, created) => {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -286,13 +271,11 @@ describe('Polygon', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to find saved', function (done) {
-
+  it('should be able to find saved', (done) => {
     PLOI
-      .findOne(function (error, found) {
+      .findOne((error, found) => {
         expect(error).to.not.exist;
         expect(found).to.exist;
         expect(found).to.exist;
@@ -308,26 +291,23 @@ describe('Polygon', function () {
 
         done(error, found);
       });
-
   });
 
-  it('should not save - invalid', function (done) {
-
+  it('should not save - invalid', (done) => {
     const poi = new PLOI({
       farm: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.save(function (error, saved) {
+    poi.save((error, saved) => {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
     });
-
   });
 
-  after(function (done) {
+  after((done) => {
     PLOI.deleteMany(done);
   });
 

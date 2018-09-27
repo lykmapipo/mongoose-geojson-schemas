@@ -10,14 +10,14 @@ const { Schema } = mongoose;
 const { MultiPolygon, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
-describe('MultiPolygon', function () {
+describe('MultiPolygon', () => {
 
   let MPLOI;
   const PoiSchema = new Schema({
     jurisdiction: MultiPolygon
   });
 
-  it('should be a schema', function () {
+  it('should be a schema', () => {
     //assert shape
     expect(MultiPolygon).to.be.an('object');
     expect(MultiPolygon.index).to.be.equal(GEO_2DSPHERE);
@@ -36,14 +36,13 @@ describe('MultiPolygon', function () {
   });
 
 
-  it('indexes are created when model is compiled', function (done) {
-
+  it('indexes are created when model is compiled', (done) => {
     MPLOI = mongoose.model('MPLOI', PoiSchema);
 
-    MPLOI.on('index', function () {
+    MPLOI.on('index', () => {
       MPLOI
         .collection
-        .getIndexes({ full: true }, function (error, indexes) {
+        .getIndexes({ full: true }, (error, indexes) => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
@@ -58,11 +57,9 @@ describe('MultiPolygon', function () {
           done(error, indexes);
         });
     });
-
   });
 
-  it('should be instantiable', function () {
-
+  it('should be instantiable', () => {
     const ploi = new MPLOI({
       jurisdiction: {
         coordinates: [
@@ -99,7 +96,6 @@ describe('MultiPolygon', function () {
     expect(ploi.jurisdiction).to.exist;
     expect(ploi.jurisdiction.type).to.exist;
     expect(ploi.jurisdiction.coordinates).to.exist;
-
   });
 
   it('should be able to generate fake seed', () => {
@@ -111,8 +107,7 @@ describe('MultiPolygon', function () {
   });
 
 
-  it('should be able to validate - valid', function (done) {
-
+  it('should be able to validate - valid', (done) => {
     const ploi = new MPLOI({
       jurisdiction: {
         coordinates: [
@@ -145,22 +140,20 @@ describe('MultiPolygon', function () {
       }
     });
 
-    ploi.validate(function (error) {
+    ploi.validate((error) => {
       expect(error).to.not.exist;
       done();
     });
-
   });
 
-  it('should be able to validate - invalid', function (done) {
-
+  it('should be able to validate - invalid', (done) => {
     const ploi = new MPLOI({
       jurisdiction: {
         coordinates: [Math.random()]
       }
     });
 
-    ploi.validate(function (error) {
+    ploi.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.jurisdiction).to.exist;
@@ -169,11 +162,9 @@ describe('MultiPolygon', function () {
           'jurisdiction is not a valid GeoJSON MultiPolygon');
       done();
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = new MPLOI({
       jurisdiction: {
         coordinates: [
@@ -206,7 +197,7 @@ describe('MultiPolygon', function () {
       }
     });
 
-    ploi.save(function (error, saved) {
+    ploi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -222,12 +213,10 @@ describe('MultiPolygon', function () {
 
       done(error, saved);
     });
-
   });
 
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = new MPLOI({
       jurisdiction: {
         coordinates: [
@@ -260,7 +249,7 @@ describe('MultiPolygon', function () {
       }
     });
 
-    ploi.save(function (error, saved) {
+    ploi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -276,11 +265,9 @@ describe('MultiPolygon', function () {
 
       done(error, saved);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = {
       jurisdiction: {
         coordinates: [
@@ -329,11 +316,9 @@ describe('MultiPolygon', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const ploi = {
       jurisdiction: {
         coordinates: [
@@ -382,13 +367,11 @@ describe('MultiPolygon', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to find saved', function (done) {
-
+  it('should be able to find saved', (done) => {
     MPLOI
-      .findOne(function (error, found) {
+      .findOne((error, found) => {
         expect(error).to.not.exist;
         expect(found).to.exist;
         expect(found).to.exist;
@@ -404,26 +387,23 @@ describe('MultiPolygon', function () {
 
         done(error, found);
       });
-
   });
 
-  it('should not save - invalid', function (done) {
-
+  it('should not save - invalid', (done) => {
     const poi = new MPLOI({
       jurisdiction: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.save(function (error, saved) {
+    poi.save((error, saved) => {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
     });
-
   });
 
-  after(function (done) {
+  after((done) => {
     MPLOI.deleteMany(done);
   });
 

@@ -10,14 +10,14 @@ const { Schema } = mongoose;
 const { MultiPoint, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
-describe('MultiPoint', function () {
+describe('MultiPoint', () => {
 
   let MPOI;
   const MultiPointSchema = new Schema({
     waterpoint: MultiPoint
   });
 
-  it('should be a schema', function () {
+  it('should be a schema', () => {
     //assert shape
     expect(MultiPoint).to.be.an('object');
     expect(MultiPoint.index).to.be.equal(GEO_2DSPHERE);
@@ -36,14 +36,13 @@ describe('MultiPoint', function () {
   });
 
 
-  it('indexes are created when model is compiled', function (done) {
-
+  it('indexes are created when model is compiled', (done) => {
     MPOI = mongoose.model('MPOI', MultiPointSchema);
 
-    MPOI.on('index', function () {
+    MPOI.on('index', () => {
       MPOI
         .collection
-        .getIndexes({ full: true }, function (error, indexes) {
+        .getIndexes({ full: true }, (error, indexes) => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
@@ -58,11 +57,9 @@ describe('MultiPoint', function () {
           done(error, indexes);
         });
     });
-
   });
 
-  it('should be instantiable', function () {
-
+  it('should be instantiable', () => {
     const mpoi = new MPOI({
       waterpoint: {
         coordinates: [
@@ -76,7 +73,6 @@ describe('MultiPoint', function () {
     expect(mpoi.waterpoint).to.exist;
     expect(mpoi.waterpoint.type).to.exist;
     expect(mpoi.waterpoint.coordinates).to.exist;
-
   });
 
   it('should be able to generate fake seed', () => {
@@ -88,8 +84,7 @@ describe('MultiPoint', function () {
   });
 
 
-  it('should be able to validate - valid', function (done) {
-
+  it('should be able to validate - valid', (done) => {
     const mpoi = new MPOI({
       waterpoint: {
         coordinates: [
@@ -103,11 +98,9 @@ describe('MultiPoint', function () {
       expect(error).to.not.exist;
       done();
     });
-
   });
 
-  it('should be able to validate - invalid', function (done) {
-
+  it('should be able to validate - invalid', (done) => {
     const mpoi = new MPOI({
       waterpoint: {
         coordinates: [Math.random()]
@@ -122,11 +115,9 @@ describe('MultiPoint', function () {
         .to.be.equal('waterpoint is not a valid GeoJSON MultiPoint');
       done();
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const mpoi = new MPOI({
       waterpoint: {
         coordinates: [
@@ -136,7 +127,7 @@ describe('MultiPoint', function () {
       }
     });
 
-    mpoi.save(function (error, saved) {
+    mpoi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -152,11 +143,9 @@ describe('MultiPoint', function () {
 
       done(error, saved);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const mpoi = {
       waterpoint: {
         coordinates: [
@@ -166,7 +155,7 @@ describe('MultiPoint', function () {
       }
     };
 
-    MPOI.create(mpoi, function (error, created) {
+    MPOI.create(mpoi, (error, created) => {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -182,13 +171,11 @@ describe('MultiPoint', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to find saved', function (done) {
-
+  it('should be able to find saved', (done) => {
     MPOI
-      .findOne(function (error, found) {
+      .findOne((error, found) => {
         expect(error).to.not.exist;
         expect(found).to.exist;
         expect(found).to.exist;
@@ -204,26 +191,23 @@ describe('MultiPoint', function () {
 
         done(error, found);
       });
-
   });
 
-  it('should not save - invalid', function (done) {
-
+  it('should not save - invalid', (done) => {
     const mpoi = new MPOI({
       waterpoint: {
         coordinates: [Math.random()]
       }
     });
 
-    mpoi.save(function (error, saved) {
+    mpoi.save((error, saved) => {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
     });
-
   });
 
-  after(function (done) {
+  after((done) => {
     MPOI.deleteMany(done);
   });
 

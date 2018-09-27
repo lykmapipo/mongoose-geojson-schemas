@@ -10,14 +10,14 @@ const { Schema } = mongoose;
 const { MultiLineString, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
-describe('MultiLineString', function () {
+describe('MultiLineString', () => {
 
   let MLOI;
   const MLoiSchema = new Schema({
     railway: MultiLineString
   });
 
-  it('should be a schema', function () {
+  it('should be a schema', () => {
     //assert shape
     expect(MultiLineString).to.be.an('object');
     expect(MultiLineString.index).to.be.equal(GEO_2DSPHERE);
@@ -36,14 +36,13 @@ describe('MultiLineString', function () {
   });
 
 
-  it('indexes are created when model is compiled', function (done) {
-
+  it('indexes are created when model is compiled', (done) => {
     MLOI = mongoose.model('MLOI', MLoiSchema);
 
-    MLOI.on('index', function () {
+    MLOI.on('index', () => {
       MLOI
         .collection
-        .getIndexes({ full: true }, function (error, indexes) {
+        .getIndexes({ full: true }, (error, indexes) => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
@@ -58,11 +57,9 @@ describe('MultiLineString', function () {
           done(error, indexes);
         });
     });
-
   });
 
-  it('should be instantiable', function () {
-
+  it('should be instantiable', () => {
     const mloi = new MLOI({
       railway: {
         coordinates: [
@@ -82,7 +79,6 @@ describe('MultiLineString', function () {
     expect(mloi.railway).to.exist;
     expect(mloi.railway.type).to.exist;
     expect(mloi.railway.coordinates).to.exist;
-
   });
 
   it('should be able to generate fake seed', () => {
@@ -93,8 +89,7 @@ describe('MultiLineString', function () {
     expect(mloi.railway.coordinates).to.exist;
   });
 
-  it('should be able to validate - valid', function (done) {
-
+  it('should be able to validate - valid', (done) => {
     const mloi = new MLOI({
       railway: {
         coordinates: [
@@ -110,22 +105,20 @@ describe('MultiLineString', function () {
       }
     });
 
-    mloi.validate(function (error) {
+    mloi.validate((error) => {
       expect(error).to.not.exist;
       done();
     });
-
   });
 
-  it('should be able to validate - invalid', function (done) {
-
+  it('should be able to validate - invalid', (done) => {
     const mloi = new MLOI({
       railway: {
         coordinates: [Math.random()]
       }
     });
 
-    mloi.validate(function (error) {
+    mloi.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.railway).to.exist;
@@ -134,11 +127,9 @@ describe('MultiLineString', function () {
           'railway is not a valid GeoJSON MultiLineString');
       done();
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const mloi = new MLOI({
       railway: {
         coordinates: [
@@ -154,7 +145,7 @@ describe('MultiLineString', function () {
       }
     });
 
-    mloi.save(function (error, saved) {
+    mloi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -170,12 +161,10 @@ describe('MultiLineString', function () {
 
       done(error, saved);
     });
-
   });
 
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const mloi = new MLOI({
       railway: {
         coordinates: [
@@ -191,7 +180,7 @@ describe('MultiLineString', function () {
       }
     });
 
-    mloi.save(function (error, saved) {
+    mloi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -207,11 +196,9 @@ describe('MultiLineString', function () {
 
       done(error, saved);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const mloi = {
       railway: {
         coordinates: [
@@ -227,7 +214,7 @@ describe('MultiLineString', function () {
       }
     };
 
-    MLOI.create(mloi, function (error, created) {
+    MLOI.create(mloi, (error, created) => {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -243,11 +230,9 @@ describe('MultiLineString', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const mloi = {
       railway: {
         coordinates: [
@@ -263,7 +248,7 @@ describe('MultiLineString', function () {
       }
     };
 
-    MLOI.create(mloi, function (error, created) {
+    MLOI.create(mloi, (error, created) => {
       expect(error).to.not.exist;
       expect(created).to.exist;
       expect(created).to.exist;
@@ -279,13 +264,11 @@ describe('MultiLineString', function () {
 
       done(error, created);
     });
-
   });
 
-  it('should be able to find saved', function (done) {
-
+  it('should be able to find saved', (done) => {
     MLOI
-      .findOne(function (error, found) {
+      .findOne((error, found) => {
         expect(error).to.not.exist;
         expect(found).to.exist;
         expect(found).to.exist;
@@ -301,26 +284,23 @@ describe('MultiLineString', function () {
 
         done(error, found);
       });
-
   });
 
-  it('should not save - invalid', function (done) {
-
+  it('should not save - invalid', (done) => {
     const poi = new MLOI({
       railway: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.save(function (error, saved) {
+    poi.save((error, saved) => {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
     });
-
   });
 
-  after(function (done) {
+  after((done) => {
     MLOI.deleteMany(done);
   });
 

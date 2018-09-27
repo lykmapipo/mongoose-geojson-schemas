@@ -10,14 +10,14 @@ const { Schema } = mongoose;
 const { Point, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
-describe('Point', function () {
+describe('Point', () => {
 
   let POI;
   const PoiSchema = new Schema({
     location: Point
   });
 
-  it('should be a schema', function () {
+  it('should be a schema', () => {
     //assert shape
     expect(Point).to.be.an('object');
     expect(Point.index).to.be.equal(GEO_2DSPHERE);
@@ -36,14 +36,13 @@ describe('Point', function () {
   });
 
 
-  it('indexes are created when model is compiled', function (done) {
-
+  it('indexes are created when model is compiled', (done) => {
     POI = mongoose.model('POI', PoiSchema);
 
-    POI.on('index', function () {
+    POI.on('index', () => {
       POI
         .collection
-        .getIndexes({ full: true }, function (error, indexes) {
+        .getIndexes({ full: true }, (error, indexes) => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
@@ -58,11 +57,9 @@ describe('Point', function () {
           done(error, indexes);
         });
     });
-
   });
 
-  it('should be instantiable', function () {
-
+  it('should be instantiable', () => {
     const poi = new POI({
       location: {
         coordinates: [100.0, 0.0]
@@ -73,7 +70,6 @@ describe('Point', function () {
     expect(poi.location).to.exist;
     expect(poi.location.type).to.exist;
     expect(poi.location.coordinates).to.exist;
-
   });
 
   it('should be able to generate fake seed', () => {
@@ -84,8 +80,7 @@ describe('Point', function () {
     expect(poi.location.coordinates).to.exist;
   });
 
-  it('should be able to validate - valid', function (done) {
-
+  it('should be able to validate - valid', (done) => {
     const poi = new POI({
       location: {
         coordinates: [100.0, 0.0]
@@ -96,11 +91,9 @@ describe('Point', function () {
       expect(error).to.not.exist;
       done();
     });
-
   });
 
-  it('should be able to validate - invalid', function (done) {
-
+  it('should be able to validate - invalid', (done) => {
     const poi = new POI({
       location: {
         coordinates: [Math.random()]
@@ -115,18 +108,16 @@ describe('Point', function () {
         .to.be.equal('location is not a valid GeoJSON Point');
       done();
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const poi = new POI({
       location: {
         coordinates: [100.0, 0.0]
       }
     });
 
-    poi.save(function (error, saved) {
+    poi.save((error, saved) => {
       expect(error).to.not.exist;
       expect(saved).to.exist;
       expect(saved).to.exist;
@@ -142,11 +133,9 @@ describe('Point', function () {
 
       done(error, saved);
     });
-
   });
 
-  it('should be able to save - valid', function (done) {
-
+  it('should be able to save - valid', (done) => {
     const poi = {
       location: {
         coordinates: [100.0, 0.0]
@@ -154,7 +143,7 @@ describe('Point', function () {
     };
 
     POI
-      .create(poi, function (error, created) {
+      .create(poi, (error, created) => {
         expect(error).to.not.exist;
         expect(created).to.exist;
         expect(created).to.exist;
@@ -170,13 +159,11 @@ describe('Point', function () {
 
         done(error, created);
       });
-
   });
 
-  it('should be able to find saved', function (done) {
-
+  it('should be able to find saved', (done) => {
     POI
-      .findOne(function (error, found) {
+      .findOne((error, found) => {
         expect(error).to.not.exist;
         expect(found).to.exist;
         expect(found).to.exist;
@@ -192,27 +179,24 @@ describe('Point', function () {
 
         done(error, found);
       });
-
   });
 
-  it('should not save - invalid', function (done) {
-
+  it('should not save - invalid', (done) => {
     const poi = new POI({
       location: {
         coordinates: [Math.random()]
       }
     });
 
-    poi.save(function (error, saved) {
+    poi.save((error, saved) => {
       expect(error).to.exist;
       expect(saved).to.not.exist;
       done();
     });
-
   });
 
 
-  after(function (done) {
+  after((done) => {
     POI.deleteMany(done);
   });
 

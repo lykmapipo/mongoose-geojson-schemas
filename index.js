@@ -26,6 +26,11 @@ const turf = require('@turf/turf');
 
 /* declarations */
 const {
+  Geometry,
+  isGeometry
+} = require(path.join(__dirname, 'lib', 'geometry'));
+
+const {
   Point,
   isPoint
 } = require(path.join(__dirname, 'lib', 'point'));
@@ -60,6 +65,33 @@ const GEO_2DSPHERE = '2dsphere';
 
 /* export geosphere index */
 exports.GEO_2DSPHERE = GEO_2DSPHERE;
+
+
+/* export geojson geometry */
+exports.Geometry = {
+  type: Geometry,
+  index: GEO_2DSPHERE,
+  default: undefined,
+  validate: {
+    isAsync: true,
+    validator: isGeometry,
+    message: '{PATH} is not a valid GeoJSON Geometry'
+  },
+  fake: {
+    generator: function fakeGeometryGenerator() {
+      const fakes = [
+        exports.randomPoint,
+        exports.randomLineString,
+        exports.randomPolygon,
+        exports.randomMultiPoint,
+        exports.randomMultiLineString,
+        exports.randomMultiPolygon,
+      ];
+      const fake = fakes[(Math.floor(Math.random() * fakes.length))];
+      return fake();
+    }
+  }
+};
 
 
 /* export geojson point */
