@@ -62,7 +62,7 @@ describe('Point', () => {
   it('should be instantiable', () => {
     const poi = new POI({
       location: {
-        coordinates: [100.0, 0.0]
+        coordinates: [-100.0, 0.0]
       }
     });
 

@@ -132,4 +132,30 @@ describe('GeoJSON', () => {
     expect(centroid.coordinates).to.exist;
   });
 
+
+  describe('bbox', function () {
+    before(() => {
+      process.env.GEOJSON_DEFAULT_BBOX = '-70, 20, -50, 40';
+    });
+
+    it('should be able to generate randomPoint with .env bbox', () => {
+      const point = randomPoint();
+      expect(point).to.exist;
+      expect(point).to.be.an('object');
+      expect(point.type).to.exist;
+      expect(point.type).to.be.equal('Point');
+      expect(point.coordinates).to.exist;
+
+      //asset bbox
+      expect(point.coordinates[0]).to.be.above(-70);
+      expect(point.coordinates[0]).to.be.below(-50);
+      expect(point.coordinates[1]).to.be.above(20);
+      expect(point.coordinates[1]).to.be.below(40);
+    });
+
+    after(() => {
+      delete process.env.GEOJSON_DEFAULT_BBOX;
+    });
+  });
+
 });
