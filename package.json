@@ -1,6 +1,6 @@
 {
   "name": "mongoose-geojson-schemas",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "mongoose schema to support geojson fields",
   "keywords": [
     "lykmapipo",
@@ -34,26 +34,33 @@
     "url": "https://github.com/lykmapipo/mongoose-geojson-schemas/issues"
   },
   "homepage": "https://github.com/lykmapipo/mongoose-geojson-schemas",
-  "contributors": [{
-    "name": "lykmapipo",
-    "github": "https://github.com/lykmapipo"
-  }],
+  "contributors": [
+    {
+      "name": "lykmapipo",
+      "github": "https://github.com/lykmapipo"
+    }
+  ],
   "devDependencies": {
+    "@lykmapipo/env": "^0.3.1",
     "@lykmapipo/mongoose-faker": "^0.7.0",
+    "async": "^2.6.1",
     "chai": "^4.2.0",
     "grunt": "^1.0.3",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-mocha-test": "^0.13.3",
     "jshint-stylish": "^2.2.1",
+    "lodash": "^4.17.11",
     "mocha": "^5.2.0",
-    "mongoose": "^5.2.18"
+    "mongoose": "^5.3.3"
+  },
+  "peerDependencies": {
+    "@lykmapipo/env": "^0.3.1",
+    "async": "^2.6.1",
+    "lodash": "^4.17.11"
   },
   "dependencies": {
-    "@lykmapipo/env": "^0.2.1",
     "@turf/turf": "^5.1.6",
-    "async": "^2.6.1",
-    "geojson-validation": "^0.2.1",
-    "lodash": "^4.17.11"
+    "geojson-validation": "^0.2.1"
   }
 }
