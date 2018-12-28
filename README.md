@@ -15,12 +15,12 @@ mongoose schema to support [GeoJSON](http://geojson.org/geojson-spec.html) field
 
 ## Install
 ```sh
-$ npm install --save @lykmapipo/env async lodash mongoose mongoose-geojson-schemas
+$ npm install --save mongoose mongoose-geojson-schemas
 ```
 
 ## Usage
 
-```javascript
+```js
 const { Schema } = require('mongoose');
 const {
   Point,
@@ -86,7 +86,7 @@ const Shape = new Schema({
 
 const Trash = new Schema({
   name: { type: String, required: true }
-  form: GeomentryCollection
+  pile: GeomentryCollection
 });
 
 ...
