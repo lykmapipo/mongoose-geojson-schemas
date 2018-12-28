@@ -12,7 +12,7 @@ const {
   randomPolygon,
   randomMultiPolygon,
   centroidOf,
-  fromString
+  parseCoordinateString
 } = require(path.join(__dirname, '..'));
 
 describe('GeoJSON', () => {
@@ -159,16 +159,16 @@ describe('GeoJSON', () => {
     });
   });
 
-  describe('fromString', () => {
+  describe('parseCoordinateString', () => {
     it('should not parse empty string coordinates', () => {
       const coords = '';
-      const geometry = fromString(coords);
+      const geometry = parseCoordinateString(coords);
       expect(geometry).to.not.exist;
     });
 
     it('should parse a point', () => {
       const coords = '30,10';
-      const geometry = fromString(coords);
+      const geometry = parseCoordinateString(coords);
       expect(geometry).to.exist;
       expect(geometry.type).to.be.equal('Point');
       expect(geometry.coordinates).to.exist;
@@ -177,20 +177,18 @@ describe('GeoJSON', () => {
 
     it('should parse a polygon', () => {
       const coords = '35,10 45,45 15,40 10,20 35,10';
-      const geometry = fromString(coords);
+      const geometry = parseCoordinateString(coords);
       expect(geometry).to.exist;
       expect(geometry.type).to.be.equal('Polygon');
       expect(geometry.coordinates).to.exist;
       expect(geometry.coordinates).to.be.an('array');
     });
 
-    it('should parse a multipoint', () => {
+    it('should parse and return coordinates', () => {
       const coords = '10,40 40,30 20,20 30,10';
-      const geometry = fromString(coords);
-      expect(geometry).to.exist;
-      expect(geometry.type).to.be.equal('MultiPoint');
-      expect(geometry.coordinates).to.exist;
-      expect(geometry.coordinates).to.be.an('array');
+      const coordinates = parseCoordinateString(coords);
+      expect(coordinates).to.exist;
+      expect(coordinates).to.be.an('array');
     });
   });
 
