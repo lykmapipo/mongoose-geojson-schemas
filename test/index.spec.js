@@ -167,7 +167,7 @@ describe('GeoJSON', () => {
     });
 
     it('should parse a point', () => {
-      const coords = '-10.6,40.2';
+      const coords = '30,10';
       const geometry = fromString(coords);
       expect(geometry).to.exist;
       expect(geometry.type).to.be.equal('Point');
@@ -176,11 +176,19 @@ describe('GeoJSON', () => {
     });
 
     it('should parse a polygon', () => {
-      const coords =
-        '-8.3,31.7 -9,32.1 -9.2,32.6 -9.4,33 -9.5,33.6 -9.8,34.1 -10.3,34.4 -10.9,34.6 -11.5,34.7 -11.6,35.4 -11.3,35.8 -10.9,35.8 -10.2,35.7 -9.4,35.2 -8.9,34.7 -8.7,34.2 -8.3,33.3 -8.1,32.7 -8.3,31.7';
+      const coords = '35,10 45,45 15,40 10,20 35,10';
       const geometry = fromString(coords);
       expect(geometry).to.exist;
       expect(geometry.type).to.be.equal('Polygon');
+      expect(geometry.coordinates).to.exist;
+      expect(geometry.coordinates).to.be.an('array');
+    });
+
+    it('should parse a multipoint', () => {
+      const coords = '10,40 40,30 20,20 30,10';
+      const geometry = fromString(coords);
+      expect(geometry).to.exist;
+      expect(geometry.type).to.be.equal('MultiPoint');
       expect(geometry.coordinates).to.exist;
       expect(geometry.coordinates).to.be.an('array');
     });
