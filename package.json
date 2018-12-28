@@ -1,6 +1,6 @@
 {
   "name": "mongoose-geojson-schemas",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "mongoose schema to support geojson fields",
   "keywords": [
     "lykmapipo",
@@ -41,26 +41,25 @@
     }
   ],
   "devDependencies": {
-    "@lykmapipo/env": "^0.3.2",
-    "@lykmapipo/mongoose-faker": "^0.8.1",
-    "async": "^2.6.1",
+    "@lykmapipo/mongoose-faker": ">=0.8.2",
     "chai": "^4.2.0",
     "grunt": "^1.0.3",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-mocha-test": "^0.13.3",
     "jshint-stylish": "^2.2.1",
-    "lodash": "^4.17.11",
     "mocha": "^5.2.0",
-    "mongoose": "^5.3.10"
+    "mongoose": "^5.4.1",
+    "underscore.string": "^3.3.5"
   },
   "peerDependencies": {
-    "@lykmapipo/env": "^0.3.2",
-    "async": "^2.6.1",
-    "lodash": "^4.17.11"
+    "mongoose": ">=5.3.10"
   },
   "dependencies": {
-    "@turf/turf": "^5.1.6",
-    "geojson-validation": "^0.2.1"
+    "@lykmapipo/env": ">=0.3.3",
+    "async": ">=2.6.1",
+    "lodash": ">=4.17.11",
+    "@turf/turf": ">=5.1.6",
+    "geojson-validation": ">=0.2.1"
   }
 }

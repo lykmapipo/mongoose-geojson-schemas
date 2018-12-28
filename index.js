@@ -29,7 +29,8 @@ const {
   isPolygon,
   isMultiPoint,
   isMultiLineString,
-  isMultiPolygon
+  isMultiPolygon,
+  isGeometryCollection
 } = geojson;
 
 
@@ -49,6 +50,9 @@ const { MultiPolygon } = require(path.join(__dirname, 'lib', 'multipolygon'));
 const {
   MultiLineString
 } = require(path.join(__dirname, 'lib', 'multilinestring'));
+const {
+  GeometryCollection
+} = require(path.join(__dirname, 'lib', 'geometrycollection'));
 
 
 /* constants */
@@ -78,6 +82,7 @@ exports.Geometry = {
         exports.randomMultiPoint,
         exports.randomMultiLineString,
         exports.randomMultiPolygon,
+        exports.randomGeometryCollection
       ];
       const fake = fakes[(Math.floor(Math.random() * fakes.length))];
       return fake();
@@ -189,6 +194,24 @@ exports.MultiPolygon = {
   fake: {
     generator: function fakeMultiPolygonGenerator() {
       return exports.randomMultiPolygon();
+    }
+  }
+};
+
+
+/* export geojson geometrycollection */
+exports.GeometryCollection = {
+  type: GeometryCollection,
+  index: GEO_2DSPHERE,
+  default: undefined,
+  validate: {
+    isAsync: true,
+    validator: isGeometryCollection,
+    message: '{PATH} is not a valid GeoJSON GeometryCollection'
+  },
+  fake: {
+    generator: function fakeMultiPolygonGenerator() {
+      return exports.randomGeometryCollection();
     }
   }
 };

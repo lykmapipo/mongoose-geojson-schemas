@@ -29,7 +29,8 @@ const {
   MultiPoint,
   MultiLineString,
   MultiPolygon,
-  Geometry
+  Geometry,
+  GeometryCollection
 } = require('mongoose-geojson-schemas');
 
 ...
@@ -79,6 +80,13 @@ const Jurisdiction = new Schema({
 const Shape = new Schema({
   name: { type: String, required: true }
   form: Geometry
+});
+
+...
+
+const Trash = new Schema({
+  name: { type: String, required: true }
+  form: GeomentryCollection
 });
 
 ...
