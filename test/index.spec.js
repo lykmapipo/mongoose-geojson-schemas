@@ -11,7 +11,8 @@ const {
   randomMultiLineString,
   randomPolygon,
   randomMultiPolygon,
-  centroidOf
+  centroidOf,
+  fromString
 } = require(path.join(__dirname, '..'));
 
 describe('GeoJSON', () => {
@@ -133,7 +134,7 @@ describe('GeoJSON', () => {
   });
 
 
-  describe('bbox', function () {
+  describe('bbox', () => {
     before(() => {
       process.env.GEOJSON_DEFAULT_BBOX = '-70, 20, -50, 40';
     });
@@ -155,6 +156,33 @@ describe('GeoJSON', () => {
 
     after(() => {
       delete process.env.GEOJSON_DEFAULT_BBOX;
+    });
+  });
+
+  describe('fromString', () => {
+    it('should not parse empty string coordinates', () => {
+      const coords = '';
+      const geometry = fromString(coords);
+      expect(geometry).to.not.exist;
+    });
+
+    it('should parse a point', () => {
+      const coords = '-10.6,40.2';
+      const geometry = fromString(coords);
+      expect(geometry).to.exist;
+      expect(geometry.type).to.be.equal('Point');
+      expect(geometry.coordinates).to.exist;
+      expect(geometry.coordinates).to.be.an('array');
+    });
+
+    it('should parse a polygon', () => {
+      const coords =
+        '-8.3,31.7 -9,32.1 -9.2,32.6 -9.4,33 -9.5,33.6 -9.8,34.1 -10.3,34.4 -10.9,34.6 -11.5,34.7 -11.6,35.4 -11.3,35.8 -10.9,35.8 -10.2,35.7 -9.4,35.2 -8.9,34.7 -8.7,34.2 -8.3,33.3 -8.1,32.7 -8.3,31.7';
+      const geometry = fromString(coords);
+      expect(geometry).to.exist;
+      expect(geometry.type).to.be.equal('Polygon');
+      expect(geometry.coordinates).to.exist;
+      expect(geometry.coordinates).to.be.an('array');
     });
   });
 

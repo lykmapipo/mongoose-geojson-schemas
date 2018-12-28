@@ -1,6 +1,6 @@
 {
   "name": "mongoose-geojson-schemas",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "mongoose schema to support geojson fields",
   "keywords": [
     "lykmapipo",
@@ -57,9 +57,9 @@
   },
   "dependencies": {
     "@lykmapipo/env": ">=0.3.3",
-    "async": ">=2.6.1",
-    "lodash": ">=4.17.11",
     "@turf/turf": ">=5.1.6",
-    "geojson-validation": ">=0.2.1"
+    "async": ">=2.6.1",
+    "geojson-validation": ">=0.2.1",
+    "lodash": ">=4.17.11"
   }
 }
