@@ -12,7 +12,8 @@ const {
   randomPolygon,
   randomMultiPolygon,
   centroidOf,
-  parseCoordinateString
+  parseCoordinateString,
+  toCoordinateString
 } = require(path.join(__dirname, '..'));
 
 describe('GeoJSON', () => {
@@ -189,6 +190,30 @@ describe('GeoJSON', () => {
       const coordinates = parseCoordinateString(coords);
       expect(coordinates).to.exist;
       expect(coordinates).to.be.an('array');
+    });
+  });
+
+  describe('toCoordinateString', () => {
+
+    it('should format a point', () => {
+      const _coords = '30,10';
+      const geometry = parseCoordinateString(_coords);
+      const coords = toCoordinateString(geometry);
+      expect(coords).to.be.equal(_coords);
+    });
+
+    it('should format a polygon', () => {
+      const _coords = '35,10 45,45 15,40 10,20 35,10';
+      const geometry = parseCoordinateString(_coords);
+      const coords = toCoordinateString(geometry);
+      expect(coords).to.be.equal(_coords);
+    });
+
+    it('should format array of coordinates', () => {
+      const _coords = '10,40 40,30 20,20 30,10';
+      const geometry = parseCoordinateString(_coords);
+      const coords = toCoordinateString(geometry);
+      expect(coords).to.be.equal(_coords);
     });
   });
 
