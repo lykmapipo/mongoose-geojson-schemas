@@ -81,8 +81,7 @@ exports.Geometry = {
         exports.randomPolygon,
         exports.randomMultiPoint,
         exports.randomMultiLineString,
-        exports.randomMultiPolygon,
-        exports.randomGeometryCollection
+        exports.randomMultiPolygon
       ];
       const fake = fakes[(Math.floor(Math.random() * fakes.length))];
       return fake();
