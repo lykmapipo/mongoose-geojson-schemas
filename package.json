@@ -41,7 +41,7 @@
     }
   ],
   "devDependencies": {
-    "@lykmapipo/mongoose-faker": ">=0.9.6",
+    "@lykmapipo/mongoose-faker": ">=0.9.7",
     "chai": "^4.2.0",
     "grunt": "^1.0.4",
     "grunt-contrib-jshint": "^2.1.0",
@@ -54,10 +54,10 @@
     "underscore.string": "^3.3.5"
   },
   "peerDependencies": {
-    "mongoose": ">=5.5.14"
+    "mongoose": ">=5.6.0"
   },
   "dependencies": {
-    "@lykmapipo/env": ">=0.8.1",
+    "@lykmapipo/env": ">=0.9.1",
     "@turf/turf": ">=5.1.6",
     "async": ">=3.0.1",
     "geojson-validation": ">=0.2.1",
