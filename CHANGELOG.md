@@ -1,3 +1,11 @@
+#### 0.10.14 (2019-10-23)
+
+##### Chores
+
+* **deps:**
+  *  force latest version & audit fix ([a98d72fc](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/a98d72fcb7130381ea0a3d392de95cc39f5986ff))
+  *  ensure same version of mongoose ([f5684524](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/f56845243d7e58d013a009a4d6da1dfa406533f0))
+
 #### 0.10.13 (2019-10-10)
 
 ##### Chores
