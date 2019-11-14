@@ -37,7 +37,7 @@ describe('GeometryCollection', () => {
     //assert geometries
     expect(GeometryCollection.type.paths.geometries).exist;
     expect(GeometryCollection.type.paths.geometries.constructor.name)
-      .to.be.equal('DocumentArray');
+      .to.be.equal('DocumentArrayPath');
   });
 
 
