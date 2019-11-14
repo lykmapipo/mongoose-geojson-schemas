@@ -1,3 +1,9 @@
+#### 0.10.16 (2019-11-14)
+
+##### Tests
+
+*  fix assertions ([ccec9879](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/ccec9879a1982bf1eba63960d0f7e3f850e75864))
+
 #### 0.10.15 (2019-11-14)
 
 ##### Chores
