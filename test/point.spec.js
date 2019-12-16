@@ -4,18 +4,13 @@
 /*** dependencies */
 const path = require('path');
 const _ = require('lodash');
-const mongoose = require('mongoose');
-const { expect } = require('chai');
-const { Schema } = mongoose;
+const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
 const { Point, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
 describe('Point', () => {
 
   let POI;
-  const PoiSchema = new Schema({
-    location: Point
-  });
 
   it('should be a schema', () => {
     //assert shape
@@ -37,7 +32,9 @@ describe('Point', () => {
 
 
   it('indexes are created when model is compiled', (done) => {
-    POI = mongoose.model('POI', PoiSchema);
+    POI = createTestModel({
+      location: Point
+    });
 
     POI.on('index', () => {
       POI
@@ -46,7 +43,7 @@ describe('Point', () => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
-          expect(indexes).to.have.length(2);
+          expect(indexes).to.have.length.at.least(2);
 
           //assert location 2dsphere index
           const index =

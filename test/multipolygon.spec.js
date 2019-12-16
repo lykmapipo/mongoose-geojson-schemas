@@ -4,18 +4,13 @@
 /*** dependencies */
 const path = require('path');
 const _ = require('lodash');
-const mongoose = require('mongoose');
-const { expect } = require('chai');
-const { Schema } = mongoose;
+const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
 const { MultiPolygon, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
 describe('MultiPolygon', () => {
 
   let MPLOI;
-  const PoiSchema = new Schema({
-    jurisdiction: MultiPolygon
-  });
 
   it('should be a schema', () => {
     //assert shape
@@ -37,7 +32,9 @@ describe('MultiPolygon', () => {
 
 
   it('indexes are created when model is compiled', (done) => {
-    MPLOI = mongoose.model('MPLOI', PoiSchema);
+    MPLOI = createTestModel({
+      jurisdiction: MultiPolygon
+    });
 
     MPLOI.on('index', () => {
       MPLOI
@@ -46,7 +43,7 @@ describe('MultiPolygon', () => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
-          expect(indexes).to.have.length(2);
+          expect(indexes).to.have.length.at.least(2);
 
           //assert jurisdiction 2dsphere index
           const index =

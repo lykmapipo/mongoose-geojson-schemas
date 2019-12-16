@@ -4,18 +4,13 @@
 /*** dependencies */
 const path = require('path');
 const _ = require('lodash');
-const mongoose = require('mongoose');
-const { expect } = require('chai');
-const { Schema } = mongoose;
+const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
 const { MultiPoint, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
 
 
 describe('MultiPoint', () => {
 
   let MPOI;
-  const MultiPointSchema = new Schema({
-    waterpoint: MultiPoint
-  });
 
   it('should be a schema', () => {
     //assert shape
@@ -37,7 +32,9 @@ describe('MultiPoint', () => {
 
 
   it('indexes are created when model is compiled', (done) => {
-    MPOI = mongoose.model('MPOI', MultiPointSchema);
+    MPOI = createTestModel({
+      waterpoint: MultiPoint
+    });
 
     MPOI.on('index', () => {
       MPOI
@@ -46,7 +43,7 @@ describe('MultiPoint', () => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
-          expect(indexes).to.have.length(2);
+          expect(indexes).to.have.length.at.least(2);
 
           //assert waterpoint 2dsphere index
           const index =
