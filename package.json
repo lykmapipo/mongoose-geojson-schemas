@@ -50,12 +50,12 @@
     "handlebars": "^4.5.3",
     "jshint-stylish": "^2.2.1",
     "mocha": "^6.2.2",
-    "mongoose": ">=5.8.0",
+    "mongoose": ">=5.8.1",
     "shelljs": "^0.8.3",
     "underscore.string": "^3.3.5"
   },
   "peerDependencies": {
-    "mongoose": ">=5.8.0"
+    "mongoose": ">=5.8.1"
   },
   "dependencies": {
     "@lykmapipo/env": ">=0.16.0",
