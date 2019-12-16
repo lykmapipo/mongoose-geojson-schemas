@@ -69,7 +69,6 @@ exports.Geometry = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isGeometry,
     message: '{PATH} is not a valid GeoJSON Geometry'
   },
@@ -96,7 +95,6 @@ exports.Point = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isPoint,
     message: '{PATH} is not a valid GeoJSON Point'
   },
@@ -114,7 +112,6 @@ exports.LineString = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isLineString,
     message: '{PATH} is not a valid GeoJSON LineString'
   },
@@ -132,7 +129,6 @@ exports.Polygon = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isPolygon,
     message: '{PATH} is not a valid GeoJSON Polygon'
   },
@@ -150,7 +146,6 @@ exports.MultiPoint = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isMultiPoint,
     message: '{PATH} is not a valid GeoJSON MultiPoint'
   },
@@ -168,7 +163,6 @@ exports.MultiLineString = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isMultiLineString,
     message: '{PATH} is not a valid GeoJSON MultiLineString'
   },
@@ -186,7 +180,6 @@ exports.MultiPolygon = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isMultiPolygon,
     message: '{PATH} is not a valid GeoJSON MultiPolygon'
   },
@@ -204,7 +197,6 @@ exports.GeometryCollection = {
   index: GEO_2DSPHERE,
   default: undefined,
   validate: {
-    isAsync: true,
     validator: isGeometryCollection,
     message: '{PATH} is not a valid GeoJSON GeometryCollection'
   },

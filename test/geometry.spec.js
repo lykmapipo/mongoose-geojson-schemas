@@ -4,9 +4,7 @@
 /*** dependencies */
 const path = require('path');
 const _ = require('lodash');
-const mongoose = require('mongoose');
-const { expect } = require('chai');
-const { Schema } = mongoose;
+const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
 const {
   Geometry,
   GEO_2DSPHERE,
@@ -19,11 +17,6 @@ const {
 describe('Geometry', () => {
 
   let GOI;
-  const GoiSchema = new Schema({
-    point: Geometry,
-    line: Geometry,
-    polygon: Geometry
-  });
 
   it('should be a schema', () => {
     //assert shape
@@ -46,7 +39,11 @@ describe('Geometry', () => {
 
   it('indexes are created when model is compiled', (done) => {
 
-    GOI = mongoose.model('GOI', GoiSchema);
+    GOI = createTestModel({
+      point: Geometry,
+      line: Geometry,
+      polygon: Geometry
+    });
 
     GOI.on('index', () => {
       GOI
@@ -55,7 +52,7 @@ describe('Geometry', () => {
           //assert indexes
           expect(error).to.not.exist;
           expect(indexes).to.exist;
-          expect(indexes).to.have.length(4);
+          expect(indexes).to.have.length.at.least(4);
 
           //assert point 2dsphere index
           let index = (_.find(indexes, { key: { point: GEO_2DSPHERE } }));
