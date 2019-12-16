@@ -2,7 +2,6 @@
 
 
 /*** dependencies */
-const path = require('path');
 const _ = require('lodash');
 const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
 const {
@@ -11,7 +10,7 @@ const {
   randomPoint,
   randomLineString,
   randomPolygon
-} = require(path.join(__dirname, '..'));
+} = require('..');
 
 
 describe('Geometry', () => {

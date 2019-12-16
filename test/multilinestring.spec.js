@@ -2,10 +2,9 @@
 
 
 /*** dependencies */
-const path = require('path');
 const _ = require('lodash');
 const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
-const { MultiLineString, GEO_2DSPHERE } = require(path.join(__dirname, '..'));
+const { MultiLineString, GEO_2DSPHERE } = require('..');
 
 
 describe('MultiLineString', () => {

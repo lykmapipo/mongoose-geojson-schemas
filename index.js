@@ -19,9 +19,8 @@
 
 
 /* dependencies */
-const path = require('path');
 const _ = require('lodash');
-const geojson = require(path.join(__dirname, 'lib', 'geojson'));
+const geojson = require('./lib/geojson');
 const {
   isGeometry,
   isPoint,
@@ -49,18 +48,14 @@ _.forEach(geojson, function (value, key) {
 
 
 /* import geometries */
-const { Geometry } = require(path.join(__dirname, 'lib', 'geometry'));
-const { Point } = require(path.join(__dirname, 'lib', 'point'));
-const { LineString } = require(path.join(__dirname, 'lib', 'linestring'));
-const { Polygon } = require(path.join(__dirname, 'lib', 'polygon'));
-const { MultiPoint } = require(path.join(__dirname, 'lib', 'multipoint'));
-const { MultiPolygon } = require(path.join(__dirname, 'lib', 'multipolygon'));
-const {
-  MultiLineString
-} = require(path.join(__dirname, 'lib', 'multilinestring'));
-const {
-  GeometryCollection
-} = require(path.join(__dirname, 'lib', 'geometrycollection'));
+const { Geometry } = require('./lib/geometry');
+const { Point } = require('./lib/point');
+const { LineString } = require('./lib/linestring');
+const { Polygon } = require('./lib/polygon');
+const { MultiPoint } = require('./lib/multipoint');
+const { MultiPolygon } = require('./lib/multipolygon');
+const { MultiLineString } = require('./lib/multilinestring');
+const { GeometryCollection } = require('./lib/geometrycollection');
 
 
 /* constants */

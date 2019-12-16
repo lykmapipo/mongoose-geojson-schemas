@@ -2,8 +2,7 @@
 
 
 /* dependencies */
-const path = require('path');
-const { expect } = require('chai');
+const { expect } = require('@lykmapipo/mongoose-test-helpers');
 const {
   randomPoint,
   randomMultiPoint,
@@ -14,7 +13,7 @@ const {
   centroidOf,
   parseCoordinateString,
   toCoordinateString
-} = require(path.join(__dirname, '..'));
+} = require('..');
 
 describe('GeoJSON', () => {
 

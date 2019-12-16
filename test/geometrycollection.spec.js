@@ -2,14 +2,13 @@
 
 
 /*** dependencies */
-const path = require('path');
 const _ = require('lodash');
 const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
 const {
   GeometryCollection,
   GEO_2DSPHERE,
   randomGeometryCollection
-} = require(path.join(__dirname, '..'));
+} = require('..');
 
 
 describe('GeometryCollection', () => {
