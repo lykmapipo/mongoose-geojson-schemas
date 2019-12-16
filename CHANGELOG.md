@@ -1,3 +1,17 @@
+#### 0.10.19 (2019-12-16)
+
+##### Chores
+
+* **deps:**  force latest version & audit fix ([79c1f3dc](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/79c1f3dc23ae7e9c5834258b11a4bb4a98f035d2))
+
+##### Refactors
+
+*  use geo tool types ([6b246fbf](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/6b246fbf23d80afd721ef16329179056f6b3ce19))
+
+##### Tests
+
+*  use test helpers ([a13498ca](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/a13498ca939153b0e9647c896f83bd20231da078))
+
 #### 0.10.18 (2019-12-12)
 
 #### 0.10.17 (2019-12-11)
