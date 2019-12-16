@@ -1,3 +1,15 @@
+#### 0.11.0 (2019-12-16)
+
+##### New Features
+
+* **fake:**  use geo tools helpers ([a8566350](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/a85663506e789ede193e32f791e5095dee17fe5e))
+* **random:**  use geotools helpers ([2bfbf1c3](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/2bfbf1c3d45a5abbd65d7034a04e9ab41bb21141))
+
+##### Refactors
+
+*  improve import & exports ([7479de3e](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/7479de3ea52ddcdc5f5d1c835aa31c9d6259e9fb))
+* **validation:**  use sync validators ([0794f4b4](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/0794f4b41669438532d8c027031cd87db2251ba8))
+
 #### 0.10.19 (2019-12-16)
 
 ##### Chores
