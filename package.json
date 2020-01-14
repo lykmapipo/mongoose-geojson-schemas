@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@lykmapipo/env": ">=0.16.3",
-    "@lykmapipo/geo-tools": ">=0.5.1",
+    "@lykmapipo/geo-tools": ">=0.5.2",
     "@turf/turf": ">=5.1.6",
     "async": ">=3.1.0",
     "geojson-validation": ">=0.2.1",
