@@ -1,3 +1,9 @@
+#### 0.11.7 (2020-02-04)
+
+##### Chores
+
+* **deps:**  force latest version & audit fix ([d5dbaf17](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/d5dbaf17c89f1abbc897d3a1ba9617b16b2405d4))
+
 #### 0.11.6 (2020-01-23)
 
 ##### Chores
