@@ -41,8 +41,8 @@
     }
   ],
   "devDependencies": {
-    "@lykmapipo/mongoose-faker": ">=0.10.12",
-    "@lykmapipo/mongoose-test-helpers": "^0.7.36",
+    "@lykmapipo/mongoose-faker": ">=0.10.13",
+    "@lykmapipo/mongoose-test-helpers": "^0.7.37",
     "chai": "^4.2.0",
     "grunt": "^1.0.4",
     "grunt-contrib-jshint": "^2.1.0",
@@ -50,19 +50,19 @@
     "grunt-mocha-test": "^0.13.3",
     "handlebars": "^4.7.3",
     "jshint-stylish": "^2.2.1",
-    "mocha": "^7.0.1",
-    "mongoose": ">=5.9.1",
+    "mocha": "^7.1.0",
+    "mongoose": ">=5.9.2",
     "shelljs": "^0.8.3",
     "underscore.string": "^3.3.5"
   },
   "peerDependencies": {
-    "mongoose": ">=5.9.1"
+    "mongoose": ">=5.9.2"
   },
   "dependencies": {
-    "@lykmapipo/env": ">=0.16.7",
-    "@lykmapipo/geo-tools": ">=0.6.4",
+    "@lykmapipo/env": ">=0.16.8",
+    "@lykmapipo/geo-tools": ">=0.6.5",
     "@turf/turf": ">=5.1.6",
-    "async": ">=3.1.1",
+    "async": ">=3.2.0",
     "geojson-validation": ">=0.2.1",
     "lodash": ">=4.17.15"
   }
