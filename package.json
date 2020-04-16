@@ -1,6 +1,6 @@
 {
   "name": "mongoose-geojson-schemas",
-  "version": "0.11.11",
+  "version": "0.11.12",
   "description": "mongoose schema to support geojson fields",
   "keywords": [
     "lykmapipo",
