@@ -106,6 +106,7 @@ $ npm test
 ```
 
 ## References
+ - [mongoose - Using GeoJSON](https://mongoosejs.com/docs/geojson.html)
  - [rfc7946](https://tools.ietf.org/html/rfc7946)
  - [geojson-spec.html](http://geojson.org/geojson-spec.html)
  - [GeoJSON_draft_version_6](http://wiki.geojson.org/GeoJSON_draft_version_6)
