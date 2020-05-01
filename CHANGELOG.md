@@ -1,3 +1,15 @@
+#### 0.12.0 (2020-05-01)
+
+##### Chores
+
+* **deps:**
+  *  force latest version & audit fix ([992e138c](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/992e138c8f00da852956c1f2d798d566d359b67a))
+  *  force latest version & audit fix ([ce81c9c0](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/ce81c9c019c2924fff8e62040c4342441af322cd))
+
+##### Bug Fixes
+
+*  geojson validations ([4fb94e4e](https://github.com/lykmapipo/mongoose-geojson-schemas/commit/4fb94e4e2e8f939343bf633c8eea123ff668d6d1))
+
 #### 0.11.13 (2020-04-27)
 
 ##### Chores
