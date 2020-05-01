@@ -51,16 +51,16 @@
     "handlebars": "^4.7.6",
     "jshint-stylish": "^2.2.1",
     "mocha": "^7.1.2",
-    "mongoose": ">=5.9.10",
+    "mongoose": ">=5.9.11",
     "shelljs": "^0.8.4",
     "underscore.string": "^3.3.5"
   },
   "peerDependencies": {
-    "mongoose": ">=5.9.10"
+    "mongoose": ">=5.9.11"
   },
   "dependencies": {
     "@lykmapipo/env": ">=0.17.3",
-    "@lykmapipo/geo-tools": ">=0.6.9",
+    "@lykmapipo/geo-tools": ">=0.7.0",
     "@turf/turf": ">=5.1.6",
     "async": ">=3.2.0",
     "geojson-validation": ">=1.0.1",
