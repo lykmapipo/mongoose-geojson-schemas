@@ -1,65 +1,55 @@
-'use strict';
-
-
-/*** dependencies */
-const _ = require('lodash');
-const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
-const { Point, GEO_2DSPHERE } = require('..');
-
+import _ from 'lodash';
+import { createTestModel, expect } from '@lykmapipo/mongoose-test-helpers';
+import { Point, GEO_2DSPHERE } from '../src';
 
 describe('Point', () => {
-
   let POI;
 
   it('should be a schema', () => {
-    //assert shape
+    // assert shape
     expect(Point).to.be.an('object');
     expect(Point.index).to.be.equal(GEO_2DSPHERE);
     expect(Point.type).to.be.an('object');
     expect(Point.type.constructor.name).to.be.equal('Schema');
 
-    //assert point type
+    // assert point type
     expect(Point.type.paths.type).to.exist;
-    expect(Point.type.paths.type.constructor.name)
-      .to.be.equal('SchemaString');
+    expect(Point.type.paths.type.constructor.name).to.be.equal('SchemaString');
 
-    //assert coordinates
+    // assert coordinates
     expect(Point.type.paths.coordinates).exist;
-    expect(Point.type.paths.coordinates.constructor.name)
-      .to.be.equal('SchemaArray');
+    expect(Point.type.paths.coordinates.constructor.name).to.be.equal(
+      'SchemaArray'
+    );
   });
-
 
   it('indexes are created when model is compiled', (done) => {
     POI = createTestModel({
-      location: Point
+      location: Point,
     });
 
     POI.on('index', () => {
-      POI
-        .collection
-        .getIndexes({ full: true }, (error, indexes) => {
-          //assert indexes
-          expect(error).to.not.exist;
-          expect(indexes).to.exist;
-          expect(indexes).to.have.length.at.least(2);
+      POI.collection.getIndexes({ full: true }, (error, indexes) => {
+        // assert indexes
+        expect(error).to.not.exist;
+        expect(indexes).to.exist;
+        expect(indexes).to.have.length.at.least(2);
 
-          //assert location 2dsphere index
-          const index =
-            (_.find(indexes, { key: { location: GEO_2DSPHERE } }));
-          expect(index).to.exist;
-          expect(index).to.be.an('object');
+        // assert location 2dsphere index
+        const index = _.find(indexes, { key: { location: GEO_2DSPHERE } });
+        expect(index).to.exist;
+        expect(index).to.be.an('object');
 
-          done(error, indexes);
-        });
+        done(error, indexes);
+      });
     });
   });
 
   it('should be instantiable', () => {
     const poi = new POI({
       location: {
-        coordinates: [-100.0, 0.0]
-      }
+        coordinates: [-100.0, 0.0],
+      },
     });
 
     expect(poi).to.exist;
@@ -79,11 +69,11 @@ describe('Point', () => {
   it('should be able to validate - valid', (done) => {
     const poi = new POI({
       location: {
-        coordinates: [100.0, 0.0]
-      }
+        coordinates: [100.0, 0.0],
+      },
     });
 
-    poi.validate(function (error) {
+    poi.validate((error) => {
       expect(error).to.not.exist;
       done();
     });
@@ -92,16 +82,17 @@ describe('Point', () => {
   it('should be able to validate - invalid', (done) => {
     const poi = new POI({
       location: {
-        coordinates: [Math.random()]
-      }
+        coordinates: [Math.random()],
+      },
     });
 
-    poi.validate(function (error) {
+    poi.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.location).to.exist;
-      expect(error.errors.location.message)
-        .to.be.equal('location is not a valid GeoJSON Point');
+      expect(error.errors.location.message).to.be.equal(
+        'location is not a valid GeoJSON Point'
+      );
       done();
     });
   });
@@ -109,8 +100,8 @@ describe('Point', () => {
   it('should be able to save - valid', (done) => {
     const poi = new POI({
       location: {
-        coordinates: [100.0, 0.0]
-      }
+        coordinates: [100.0, 0.0],
+      },
     });
 
     poi.save((error, saved) => {
@@ -134,54 +125,52 @@ describe('Point', () => {
   it('should be able to save - valid', (done) => {
     const poi = {
       location: {
-        coordinates: [100.0, 0.0]
-      }
+        coordinates: [100.0, 0.0],
+      },
     };
 
-    POI
-      .create(poi, (error, created) => {
-        expect(error).to.not.exist;
-        expect(created).to.exist;
-        expect(created).to.exist;
-        expect(created.location).to.exist;
+    POI.create(poi, (error, created) => {
+      expect(error).to.not.exist;
+      expect(created).to.exist;
+      expect(created).to.exist;
+      expect(created.location).to.exist;
 
-        expect(created.location.type).to.exist;
-        expect(created.location.type).to.be.a('string');
-        expect(created.location.type).to.be.equal('Point');
+      expect(created.location.type).to.exist;
+      expect(created.location.type).to.be.a('string');
+      expect(created.location.type).to.be.equal('Point');
 
-        expect(created.location.coordinates).to.exist;
-        expect(created.location.coordinates).to.be.an('array');
-        expect(created.location.coordinates).to.have.length(2);
+      expect(created.location.coordinates).to.exist;
+      expect(created.location.coordinates).to.be.an('array');
+      expect(created.location.coordinates).to.have.length(2);
 
-        done(error, created);
-      });
+      done(error, created);
+    });
   });
 
   it('should be able to find saved', (done) => {
-    POI
-      .findOne((error, found) => {
-        expect(error).to.not.exist;
-        expect(found).to.exist;
-        expect(found).to.exist;
-        expect(found.location).to.exist;
+    POI.findOne((error, found) => {
+      expect(error).to.not.exist;
+      expect(found).to.exist;
+      expect(found).to.exist;
+      expect(found.location).to.exist;
 
-        expect(found.location.type).to.exist;
-        expect(found.location.type).to.be.a('string');
-        expect(found.location.type).to.be.equal('Point');
+      expect(found.location.type).to.exist;
+      expect(found.location.type).to.be.a('string');
+      expect(found.location.type).to.be.equal('Point');
 
-        expect(found.location.coordinates).to.exist;
-        expect(found.location.coordinates).to.be.an('array');
-        expect(found.location.coordinates).to.have.length(2);
+      expect(found.location.coordinates).to.exist;
+      expect(found.location.coordinates).to.be.an('array');
+      expect(found.location.coordinates).to.have.length(2);
 
-        done(error, found);
-      });
+      done(error, found);
+    });
   });
 
   it('should not save - invalid', (done) => {
     const poi = new POI({
       location: {
-        coordinates: [Math.random()]
-      }
+        coordinates: [Math.random()],
+      },
     });
 
     poi.save((error, saved) => {
@@ -191,9 +180,7 @@ describe('Point', () => {
     });
   });
 
-
   after((done) => {
     POI.deleteMany(done);
   });
-
 });

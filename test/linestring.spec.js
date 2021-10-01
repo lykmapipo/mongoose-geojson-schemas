@@ -1,59 +1,50 @@
-'use strict';
-
-
-/*** dependencies */
-const _ = require('lodash');
-const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
-const { LineString, GEO_2DSPHERE } = require('..');
-
+import _ from 'lodash';
+import { createTestModel, expect } from '@lykmapipo/mongoose-test-helpers';
+import { LineString, GEO_2DSPHERE } from '../src';
 
 describe('LineString', () => {
-
   let LOI;
 
   it('should be a schema', () => {
-    //assert shape
+    // assert shape
     expect(LineString).to.be.an('object');
     expect(LineString.index).to.be.equal(GEO_2DSPHERE);
     expect(LineString.type).to.be.an('object');
     expect(LineString.type.constructor.name).to.be.equal('Schema');
 
-    //assert point type
+    // assert point type
     expect(LineString.type.paths.type).to.exist;
-    expect(LineString.type.paths.type.constructor.name)
-      .to.be.equal('SchemaString');
+    expect(LineString.type.paths.type.constructor.name).to.be.equal(
+      'SchemaString'
+    );
 
-    //assert coordinates
+    // assert coordinates
     expect(LineString.type.paths.coordinates).exist;
-    expect(LineString.type.paths.coordinates.constructor.name)
-      .to.be.equal('SchemaArray');
+    expect(LineString.type.paths.coordinates.constructor.name).to.be.equal(
+      'SchemaArray'
+    );
   });
-
 
   it('indexes are created when model is compiled', (done) => {
     LOI = createTestModel({
-      road: LineString
+      road: LineString,
     });
 
     LOI.on('index', () => {
-      LOI
-        .collection
-        .getIndexes({ full: true }, (error, indexes) => {
-          //assert indexes
-          expect(error).to.not.exist;
-          expect(indexes).to.exist;
-          expect(indexes).to.have.length.at.least(2);
+      LOI.collection.getIndexes({ full: true }, (error, indexes) => {
+        // assert indexes
+        expect(error).to.not.exist;
+        expect(indexes).to.exist;
+        expect(indexes).to.have.length.at.least(2);
 
-          //assert road 2dsphere index
-          const index =
-            (_.find(indexes, { key: { road: GEO_2DSPHERE } }));
-          expect(index).to.exist;
-          expect(index).to.be.an('object');
+        // assert road 2dsphere index
+        const index = _.find(indexes, { key: { road: GEO_2DSPHERE } });
+        expect(index).to.exist;
+        expect(index).to.be.an('object');
 
-          done(error, indexes);
-        });
+        done(error, indexes);
+      });
     });
-
   });
 
   it('should be able to generate fake seed', () => {
@@ -69,9 +60,9 @@ describe('LineString', () => {
       road: {
         coordinates: [
           [100.0, 0.0],
-          [101.0, 1.0]
-        ]
-      }
+          [101.0, 1.0],
+        ],
+      },
     });
 
     expect(loi).to.exist;
@@ -85,9 +76,9 @@ describe('LineString', () => {
       road: {
         coordinates: [
           [100.0, 0.0],
-          [101.0, 1.0]
-        ]
-      }
+          [101.0, 1.0],
+        ],
+      },
     });
 
     loi.validate((error) => {
@@ -107,19 +98,19 @@ describe('LineString', () => {
   it('should be able to validate - invalid', (done) => {
     const loi = new LOI({
       road: {
-        coordinates: [Math.random()]
-      }
+        coordinates: [Math.random()],
+      },
     });
 
     loi.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.road).to.exist;
-      expect(error.errors.road.message)
-        .to.be.equal('road is not a valid GeoJSON LineString');
+      expect(error.errors.road.message).to.be.equal(
+        'road is not a valid GeoJSON LineString'
+      );
       done();
     });
-
   });
 
   it('should be able to save - valid', (done) => {
@@ -127,9 +118,9 @@ describe('LineString', () => {
       road: {
         coordinates: [
           [100.0, 0.0],
-          [101.0, 1.0]
-        ]
-      }
+          [101.0, 1.0],
+        ],
+      },
     });
 
     loi.save((error, saved) => {
@@ -148,7 +139,6 @@ describe('LineString', () => {
 
       done(error, saved);
     });
-
   });
 
   it('should be able to save - valid', (done) => {
@@ -166,12 +156,12 @@ describe('LineString', () => {
 
       expect(saved.road.coordinates).to.exist;
       expect(saved.road.coordinates).to.be.an('array');
-      expect(saved.road.coordinates)
-        .to.have.length(saved.road.coordinates.length);
+      expect(saved.road.coordinates).to.have.length(
+        saved.road.coordinates.length
+      );
 
       done(error, saved);
     });
-
   });
 
   it('should be able to save - valid', (done) => {
@@ -179,9 +169,9 @@ describe('LineString', () => {
       road: {
         coordinates: [
           [100.0, 0.0],
-          [101.0, 1.0]
-        ]
-      }
+          [101.0, 1.0],
+        ],
+      },
     };
 
     LOI.create(loi, (error, created) => {
@@ -203,30 +193,29 @@ describe('LineString', () => {
   });
 
   it('should be able to find saved', (done) => {
-    LOI
-      .findOne((error, found) => {
-        expect(error).to.not.exist;
-        expect(found).to.exist;
-        expect(found).to.exist;
-        expect(found.road).to.exist;
+    LOI.findOne((error, found) => {
+      expect(error).to.not.exist;
+      expect(found).to.exist;
+      expect(found).to.exist;
+      expect(found.road).to.exist;
 
-        expect(found.road.type).to.exist;
-        expect(found.road.type).to.be.a('string');
-        expect(found.road.type).to.be.equal('LineString');
+      expect(found.road.type).to.exist;
+      expect(found.road.type).to.be.a('string');
+      expect(found.road.type).to.be.equal('LineString');
 
-        expect(found.road.coordinates).to.exist;
-        expect(found.road.coordinates).to.be.an('array');
-        expect(found.road.coordinates).to.have.length.at.least(2);
+      expect(found.road.coordinates).to.exist;
+      expect(found.road.coordinates).to.be.an('array');
+      expect(found.road.coordinates).to.have.length.at.least(2);
 
-        done(error, found);
-      });
+      done(error, found);
+    });
   });
 
   it('should not save - invalid', (done) => {
     const poi = new LOI({
       road: {
-        coordinates: [Math.random()]
-      }
+        coordinates: [Math.random()],
+      },
     });
 
     poi.save((error, saved) => {
@@ -239,5 +228,4 @@ describe('LineString', () => {
   after((done) => {
     LOI.deleteMany(done);
   });
-
 });

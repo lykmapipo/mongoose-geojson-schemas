@@ -1,68 +1,59 @@
-'use strict';
-
-
-/*** dependencies */
-const _ = require('lodash');
-const { createTestModel, expect } = require('@lykmapipo/mongoose-test-helpers');
-const {
+import _ from 'lodash';
+import { createTestModel, expect } from '@lykmapipo/mongoose-test-helpers';
+import {
   GeometryCollection,
   GEO_2DSPHERE,
-  randomGeometryCollection
-} = require('..');
-
+  randomGeometryCollection,
+} from '../src';
 
 describe('GeometryCollection', () => {
-
   let GOIC;
 
   it('should be a schema', () => {
-    //assert shape
+    // assert shape
     expect(GeometryCollection).to.be.an('object');
     expect(GeometryCollection.index).to.be.equal(GEO_2DSPHERE);
     expect(GeometryCollection.type).to.be.an('object');
-    expect(GeometryCollection.type.constructor.name)
-      .to.be.equal('Schema');
+    expect(GeometryCollection.type.constructor.name).to.be.equal('Schema');
 
-    //assert point type
+    // assert point type
     expect(GeometryCollection.type.paths.type).to.exist;
-    expect(GeometryCollection.type.paths.type.constructor.name)
-      .to.be.equal('SchemaString');
+    expect(GeometryCollection.type.paths.type.constructor.name).to.be.equal(
+      'SchemaString'
+    );
 
-    //assert geometries
+    // assert geometries
     expect(GeometryCollection.type.paths.geometries).exist;
-    expect(GeometryCollection.type.paths.geometries.constructor.name)
-      .to.be.equal('DocumentArrayPath');
+    expect(
+      GeometryCollection.type.paths.geometries.constructor.name
+    ).to.be.equal('DocumentArrayPath');
   });
-
 
   it('indexes are created when model is compiled', (done) => {
     GOIC = createTestModel({
-      trash: GeometryCollection
+      trash: GeometryCollection,
     });
 
     GOIC.on('index', () => {
-      GOIC
-        .collection
-        .getIndexes({ full: true }, function (error, indexes) {
-          //assert indexes
-          expect(error).to.not.exist;
-          expect(indexes).to.exist;
-          expect(indexes).to.have.length.at.least(2);
+      GOIC.collection.getIndexes({ full: true }, (error, indexes) => {
+        // assert indexes
+        expect(error).to.not.exist;
+        expect(indexes).to.exist;
+        expect(indexes).to.have.length.at.least(2);
 
-          //assert trash 2dsphere index
-          const index = (_.find(indexes, { key: { trash: GEO_2DSPHERE } }));
-          expect(index).to.exist;
-          expect(index).to.be.an('object');
+        // assert trash 2dsphere index
+        const index = _.find(indexes, { key: { trash: GEO_2DSPHERE } });
+        expect(index).to.exist;
+        expect(index).to.be.an('object');
 
-          done(error, indexes);
-        });
+        done(error, indexes);
+      });
     });
-
   });
 
   it('should be instantiable', () => {
     const goic = new GOIC({
-      trash: randomGeometryCollection()
+      trash: randomGeometryCollection(),
     });
 
     expect(goic).to.exist;
@@ -81,10 +72,10 @@ describe('GeometryCollection', () => {
 
   it('should be able to validate - valid', (done) => {
     const goic = new GOIC({
-      trash: randomGeometryCollection()
+      trash: randomGeometryCollection(),
     });
 
-    goic.validate(function (error) {
+    goic.validate((error) => {
       expect(error).to.not.exist;
       done();
     });
@@ -93,24 +84,24 @@ describe('GeometryCollection', () => {
   it('should be able to validate - invalid', (done) => {
     const goic = new GOIC({
       trash: {
-        geometries: [Math.random()]
-      }
+        geometries: [Math.random()],
+      },
     });
 
-    goic.validate(function (error) {
+    goic.validate((error) => {
       expect(error).to.exist;
       expect(error.name).to.be.equal('ValidationError');
       expect(error.errors.trash).to.exist;
-      expect(error.errors.trash.message)
-        .to.be.equal(
-          'trash is not a valid GeoJSON GeometryCollection');
+      expect(error.errors.trash.message).to.be.equal(
+        'trash is not a valid GeoJSON GeometryCollection'
+      );
       done();
     });
   });
 
   it('should be able to save - valid', (done) => {
     const goic = new GOIC({
-      trash: randomGeometryCollection()
+      trash: randomGeometryCollection(),
     });
 
     goic.save((error, saved) => {
@@ -132,30 +123,29 @@ describe('GeometryCollection', () => {
   });
 
   it('should be able to find saved', (done) => {
-    GOIC
-      .findOne((error, found) => {
-        expect(error).to.not.exist;
-        expect(found).to.exist;
-        expect(found).to.exist;
-        expect(found.trash).to.exist;
+    GOIC.findOne((error, found) => {
+      expect(error).to.not.exist;
+      expect(found).to.exist;
+      expect(found).to.exist;
+      expect(found.trash).to.exist;
 
-        expect(found.trash.type).to.exist;
-        expect(found.trash.type).to.be.a('string');
-        expect(found.trash.type).to.be.equal('GeometryCollection');
+      expect(found.trash.type).to.exist;
+      expect(found.trash.type).to.be.a('string');
+      expect(found.trash.type).to.be.equal('GeometryCollection');
 
-        expect(found.trash.geometries).to.exist;
-        expect(found.trash.geometries).to.be.an('array');
-        expect(found.trash.geometries).to.have.length.at.least(1);
+      expect(found.trash.geometries).to.exist;
+      expect(found.trash.geometries).to.be.an('array');
+      expect(found.trash.geometries).to.have.length.at.least(1);
 
-        done(error, found);
-      });
+      done(error, found);
+    });
   });
 
   it('should not save - invalid', (done) => {
     const goic = new GOIC({
       trash: {
-        geometries: [Math.random()]
-      }
+        geometries: [Math.random()],
+      },
     });
 
     goic.save((error, saved) => {
@@ -165,9 +155,7 @@ describe('GeometryCollection', () => {
     });
   });
 
-
   after((done) => {
     GOIC.deleteMany(done);
   });
-
 });

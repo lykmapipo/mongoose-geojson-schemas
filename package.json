@@ -2,6 +2,31 @@
   "name": "mongoose-geojson-schemas",
   "version": "0.12.9",
   "description": "mongoose schema to support geojson fields",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "clean": "rimraf lib dist es umd logs",
+    "prepare": "husky install",
+    "prebuild": "npm test && npm run clean",
+    "build": "rollup -c",
+    "lint": "eslint --fix --ext .js src/ test/ examples/ rollup.config.js",
+    "prettier": "prettier --write '**/*.{md,json,yml,html}'",
+    "pretest": "npm run lint",
+    "test": "NODE_ENV=test GEO_BBOX='39.18239593505859,-6.866780089745249,39.280242919921875,-6.76553393902715' nyc --reporter=html --reporter=text mocha --exit --timeout=8000 --require @babel/register test/**/*.spec.js",
+    "test:unit": "NODE_ENV=test npm run pretest && NODE_ENV=test mocha --exit --timeout=8000 --require @babel/register test/unit/**/*.spec.js",
+    "test:integration": "NODE_ENV=test npm run pretest && NODE_ENV=test mocha --exit --timeout=8000 --require @babel/register test/integration/**/*.spec.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "docs": "doxdox 'lib/**/*.js' -p package.json -l markdown -o DOCUMENTATION.md",
+    "cmt": "git add -A && git-cz",
+    "changelog": "changelog",
+    "chore:deps": "ncu -u --timeout=60000 && npm install --save",
+    "lint:config": "eslint --print-config rollup.config.js",
+    "examples": "NODE_ENV=development BASE_PATH=./examples babel-node ./examples/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lykmapipo/mongoose-geojson-schemas.git"
+  },
   "keywords": [
     "lykmapipo",
     "mongoose",
@@ -16,54 +41,101 @@
     "geometry",
     "feature"
   ],
-  "main": "index.js",
-  "scripts": {
-    "test": "NODE_ENV=test grunt test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lykmapipo/mongoose-geojson-schemas.git"
-  },
   "author": {
     "name": "lykmapipo",
     "email": "lallyelias87@gmail.com",
     "url": "https://github.com/lykmapipo"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lykmapipo/mongoose-geojson-schemas/issues"
-  },
-  "homepage": "https://github.com/lykmapipo/mongoose-geojson-schemas",
   "contributors": [
     {
       "name": "lykmapipo",
-      "github": "https://github.com/lykmapipo"
+      "email": "lallyelias87@gmail.com",
+      "url": "https://github.com/lykmapipo"
     }
   ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lykmapipo/mongoose-geojson-schemas/issues",
+    "email": "lallyelias87@gmail.com"
+  },
+  "homepage": "https://github.com/lykmapipo/mongoose-geojson-schemas",
   "devDependencies": {
-    "@lykmapipo/mongoose-faker": ">=0.10.26",
-    "@lykmapipo/mongoose-test-helpers": "^0.8.4",
-    "chai": "^4.2.0",
-    "grunt": "^1.2.1",
-    "grunt-contrib-jshint": "^2.1.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-mocha-test": "^0.13.3",
-    "handlebars": "^4.7.6",
-    "jshint-stylish": "^2.2.1",
-    "mocha": "^8.1.1",
-    "mongoose": ">=5.9.28",
-    "shelljs": "^0.8.4",
-    "underscore.string": "^3.3.5"
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/register": "^7.15.3",
+    "@commitlint/cli": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@commitlint/travis-cli": "^13.2.0",
+    "@lykmapipo/mongoose-faker": ">=0.12.0",
+    "@lykmapipo/mongoose-test-helpers": ">=0.9.0",
+    "@lykmapipo/test-helpers": ">=0.6.23",
+    "acorn": "^8.5.0",
+    "chai": "^4.3.4",
+    "commitizen": "^4.2.4",
+    "coveralls": "^3.1.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "doxdox": "^3.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-mocha": "^9.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "generate-changelog": "^1.8.0",
+    "handlebars": "^4.7.7",
+    "husky": "^7.0.2",
+    "kind-of": "^6.0.3",
+    "lint-staged": "^11.1.2",
+    "lodash.template": "^4.5.0",
+    "minimist": "^1.2.5",
+    "mocha": "^9.1.2",
+    "mongoose": ">=6.0.8",
+    "nyc": "^15.1.0",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.57.0",
+    "shelljs": "^0.8.4"
   },
   "peerDependencies": {
-    "mongoose": ">=5.9.28"
+    "mongoose": ">=6.0.8"
   },
   "dependencies": {
-    "@lykmapipo/env": ">=0.17.16",
-    "@lykmapipo/geo-tools": ">=0.7.13",
-    "@turf/turf": ">=5.1.6",
-    "async": ">=3.2.0",
+    "@lykmapipo/common": ">=0.44.4",
+    "@lykmapipo/env": ">=0.17.39",
+    "@lykmapipo/geo-tools": ">=0.7.27",
+    "@lykmapipo/mongoose-common": ">=0.40.0",
+    "@turf/turf": ">=6.5.0",
+    "async": ">=3.2.1",
     "geojson-validation": ">=1.0.2",
-    "lodash": ">=4.17.19"
+    "lodash": ">=4.17.21"
+  },
+  "engines": {
+    "node": ">=8.11.1",
+    "npm": ">=5.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "npm run lint",
+      "git add -A"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }

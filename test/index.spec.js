@@ -1,9 +1,5 @@
-'use strict';
-
-
-/* dependencies */
-const { expect } = require('@lykmapipo/mongoose-test-helpers');
-const {
+import { expect } from '@lykmapipo/mongoose-test-helpers';
+import {
   randomPoint,
   randomMultiPoint,
   randomLineString,
@@ -12,11 +8,10 @@ const {
   randomMultiPolygon,
   centroidOf,
   parseCoordinateString,
-  toCoordinateString
-} = require('..');
+  toCoordinateString,
+} from '../src';
 
 describe('GeoJSON', () => {
-
   it('should be able to generate randomPoint', () => {
     const point = randomPoint();
     expect(point).to.exist;
@@ -26,14 +21,12 @@ describe('GeoJSON', () => {
     expect(point.coordinates).to.exist;
   });
 
-
   it('should be able to generate randomPoints', () => {
     const points = randomPoint(2);
     expect(points).to.exist;
     expect(points).to.be.an('array');
     expect(points).to.have.length(2);
   });
-
 
   it('should be able to generate randomMultiPoint', () => {
     const multipoint = randomMultiPoint();
@@ -45,15 +38,12 @@ describe('GeoJSON', () => {
     expect(multipoint.coordinates).to.have.length(2);
   });
 
-
   it('should be able to generate randomMultiPoints', () => {
     const multipoints = randomMultiPoint(2);
     expect(multipoints).to.exist;
     expect(multipoints).to.be.an('array');
     expect(multipoints).to.have.length(2);
   });
-
-
 
   it('should be able to generate randomLineString', () => {
     const line = randomLineString();
@@ -64,7 +54,6 @@ describe('GeoJSON', () => {
     expect(line.coordinates).to.exist;
   });
 
-
   it('should be able to generate randomMultiLineString', () => {
     const multiline = randomMultiLineString();
     expect(multiline).to.exist;
@@ -73,7 +62,6 @@ describe('GeoJSON', () => {
     expect(multiline.type).to.be.equal('MultiLineString');
     expect(multiline.coordinates).to.exist;
   });
-
 
   it('should be able to generate randomLineStrings', () => {
     const lines = randomLineString(2);
@@ -88,7 +76,6 @@ describe('GeoJSON', () => {
     expect(multilines).to.be.an('array');
     expect(multilines).to.have.length(2);
   });
-
 
   it('should be able to generate randomPolygon', () => {
     const polygon = randomPolygon();
@@ -107,7 +94,6 @@ describe('GeoJSON', () => {
     expect(multipolygon.type).to.be.equal('MultiPolygon');
     expect(multipolygon.coordinates).to.exist;
   });
-
 
   it('should be able to generate randomPolygons', () => {
     const polygons = randomPolygon(2);
@@ -167,7 +153,6 @@ describe('GeoJSON', () => {
   });
 
   describe('toCoordinateString', () => {
-
     it('should format a point', () => {
       const _coords = '30,10';
       const geometry = parseCoordinateString(_coords);
@@ -189,5 +174,4 @@ describe('GeoJSON', () => {
       expect(coords).to.be.equal(_coords);
     });
   });
-
 });
