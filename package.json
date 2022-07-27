@@ -73,7 +73,7 @@
     "@lykmapipo/mongoose-faker": ">=0.12.0",
     "@lykmapipo/mongoose-test-helpers": ">=0.10.0",
     "@lykmapipo/test-helpers": ">=0.6.23",
-    "acorn": "^8.7.1",
+    "acorn": "^8.8.0",
     "chai": "^4.3.6",
     "commitizen": "^4.2.5",
     "coveralls": "^3.1.1",
@@ -94,15 +94,15 @@
     "lodash.template": "^4.5.0",
     "minimist": "^1.2.6",
     "mocha": "^9.2.2",
-    "mongoose": ">=6.4.6",
+    "mongoose": ">=6.5.0",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.77.0",
+    "rollup": "^2.77.2",
     "shelljs": "^0.8.5"
   },
   "peerDependencies": {
-    "mongoose": ">=6.4.6"
+    "mongoose": ">=6.5.0"
   },
   "dependencies": {
     "@lykmapipo/common": ">=0.44.5",
